@@ -1,0 +1,58 @@
+
+/* rem 适配 start */
+html {
+    font-size: 625%;
+}
+body {
+    background-color: #F5F3F3;
+}
+/* rem 适配 end*/
+
+.text-overflow {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
+
+.clear::after {
+    content: ' ';
+    clear: both;
+    overflow: hidden;    
+}
+.fade-enter-active {  
+  -webkit-transform:translateX(0%);
+  transform:translateX(0%)
+}
+.fade-enter /* .fade-leave-active below version 2.1.8 */ {
+  // opacity: 0;
+  -webkit-transform:translateX(-100%);
+  transform:translateX(-100%);
+}
+.fade-leave {
+  -webkit-transform:translateX(0);
+  transform:translateX(0%);
+}
+.fade-leave-to {
+  -webkit-transform:translateX(100%);
+  transform:translateX(100%);
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+  // opacity: 1;
+  // -webkit-transform: translate(100%, 0);
+  // transform: translate(100%, 0);
+  -webkit-transform:translateY(100%);
+  transform:translateY(100%);
+}
+.slide-left-leave-active,
+.slide-right-enter {
+  // opacity: 1;
+  // // -webkit-transform: translate(-$tran, 0);
+  // -webkit-transform: translate(-100%, 0);
+  // // transform: translate(-$tran, 0);
+  // transform: translate(-100%, 0);
+  -webkit-transform:translateY(-100%);
+  transform:translateY(-100%)
+}
