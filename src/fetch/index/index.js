@@ -38,3 +38,10 @@ export async function getSp () {
   }))
   return res
 }
+
+export async function getCategory () {
+  let res = await RQ.post('home/category', qs.stringify({
+    parent_cates: 1
+  }))
+  return res
+}

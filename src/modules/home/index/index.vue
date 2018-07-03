@@ -50,8 +50,21 @@
 
       <!-- 热门分类 -->
       <section class="category">
-        <div class="category-title">
-
+        <div class="category_title">
+          <h4>热门分类</h4>
+          <p>优质商品，实力厂家，满满优惠惊喜等着您</p>
+        </div>
+        <div class="category_list">
+          <ul>
+            <li @click="currCate=index" v-for="(cate,index) in cates" :key="index" :class="index==currCate?'active':''">
+              <span>{{cate.parent_name}}</span>
+            </li>
+          </ul>
+          <div class="category_content_list">
+            <div class="category-item">
+              <p>标题</p>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -75,7 +88,7 @@
 <script>
 import Vue from 'vue'
 import { Toast, Lazyload, Tabbar, TabbarItem } from 'vant'
-import { getSp, getSlide } from '@/fetch/index'
+import { getSp, getSlide, getCategory } from '@/fetch/index'
 import twSwipe from './components/tw-swipe'
 
 import twMenu from '@tw/tw-menu'
@@ -100,11 +113,14 @@ export default {
     getSlide().then(res => {
       this.imgs = res.data.imgs
     })
+    getCategory().then(res => {
+      this.cates = res.data.data.cates
+      console.log(this.cates)
+    })
   },
   mounted () {
     getSp().then(res => {
       this.total_activitys = res.data.data.total_activitys
-      console.log(this.total_activitys)
       // let ul = this.$refs.jrtjul
       // let ulWidth = this.total_activitys.special.length * 1.3 + 'rem'
       // ul.style.width = ulWidth
@@ -186,7 +202,9 @@ export default {
         special: [],
         promotion: []
       },
-      view: 'Special'
+      view: 'Special',
+      cates: [],
+      currCate: 0
     }
   },
   methods: {
@@ -332,7 +350,6 @@ export default {
       overflow-x: hidden;
     }
     .content {
-      margin-top: 0.02rem;
       background-color: #fff;
       position: absolute;
       width: 100%;
@@ -350,6 +367,7 @@ export default {
           box-sizing: border-box;
           border-right: 1px solid @bgColor;
           width: 1.3rem;
+          height: 2rem;
           padding: 0.05rem;
           img {
             vertical-align: middle;
@@ -422,6 +440,55 @@ export default {
             width: 100%;
           }
         }
+      }
+    }
+
+    .category .category_title {
+      width: 100%;
+      height: .6rem;
+      background: url(http://xpt.m.gzjztw.com//picture/app/home/category_tit.png) no-repeat center center;
+      background-size: cover;
+      border-bottom: 1px solid #ccc;
+      h4 {
+        font-size: 0.15rem;
+        line-height: .3rem;
+      }
+      p {
+        font-size: .11rem;
+        color: #666;
+      }
+    }
+    .category .category_list {
+      .layout(row);
+      background-color: #fff;
+      ul {
+        display: inline-block;
+        width: .9rem;
+        li {
+          display: inline-block;
+          height: .55rem;
+          width: 100%;
+          border-bottom: 1px solid #e1e1e1;
+          border-right: 1px solid #e1e1e1;
+          span {
+            display: block;
+            width: 100%;
+            height: .35rem;
+            line-height: .35rem;
+            margin-top: .1rem;
+            border-left: 3px solid #fff;
+          }
+          &.active {
+            border-right: 1px solid #fff;
+            span {
+              color: #00aaef;
+              border-left: 3px solid #00aaef;
+            }
+          }
+        }
+      }
+      .category_content_list {
+        flex: 1;
       }
     }
   }

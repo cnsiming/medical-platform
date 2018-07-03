@@ -113,3 +113,22 @@ mock.mock(setUrl('home/slide'), {
   'imgs|1-10': [Random.image('300x250', '#f3f3f3')]
 
 })
+
+mock.mock(setUrl('home/category'), {
+  data: {
+    'cates|6-11': [
+      {
+        'parent_id|+1': 0,
+        parent_name: '@cname',
+        'child|0-9': [
+          {
+            'category_id|1-100': 0,
+            category_name: '@cname',
+            'image_list': Random.image('100x100', '#f3f3f3'),
+            'parent_category_id|+1': 0
+          }
+        ]
+      }
+    ]
+  }
+})

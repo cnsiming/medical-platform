@@ -1,5 +1,5 @@
 <template>
-   <!-- 今日特价 -->
+   <!-- 活动专区 -->
     <div ref="content" class="content jrtj" style="height: 2.00rem;">
         <ul class="card" :style="{width: activity.length * 1.3 +'rem'}">
             <li v-for="(item,index) in activity" :key="index">
@@ -26,7 +26,7 @@ export default {
   data () {
     return {}
   },
-  mounted () {
+  activated () {
     document.getElementsByClassName('tab-content')[0].style.height = this.$refs.content.clientHeight + 'px'
   }
 }

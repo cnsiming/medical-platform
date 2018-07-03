@@ -26,7 +26,7 @@ export default {
   data () {
     return {}
   },
-  mounted () {
+  activated () {
     document.getElementsByClassName('tab-content')[0].style.height = this.$refs.content.clientHeight + 'px'
   }
 }

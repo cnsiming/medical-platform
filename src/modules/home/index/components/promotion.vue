@@ -62,7 +62,7 @@ export default {
       return this.promotion[this.promotionIndex]
     }
   },
-  mounted () {
+  activated () {
     document.getElementsByClassName('tab-content')[0].style.height = this.$refs.content.clientHeight + 'px'
   }
 }

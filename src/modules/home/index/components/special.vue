@@ -19,6 +19,7 @@
 <script>
 
 import twCountdowntime from '@tw/tw-countdowntime'
+
 export default {
   components: {
     twCountdowntime
@@ -32,12 +33,8 @@ export default {
   data () {
     return {}
   },
-  updated () {
-    let ul = this.$refs.jrtjul
-    let ulWidth = this.special.length * 1.3 + 'rem'
-    ul.style.width = ulWidth
-  },
-  mounted () {
+  activated () {
+    console.log('update')
     document.getElementsByClassName('tab-content')[0].style.height = this.$refs.content.clientHeight + 'px'
   }
 }
