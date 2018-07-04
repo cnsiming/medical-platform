@@ -9,7 +9,7 @@
       </section>
       <section class="header-right"><i class="icon icon-xiaoxi"></i></section>
     </header>
-    <main class="main">
+    <main ref="main" class="main">
       <!-- 轮播图 -->
       <section class="swipe-wrapper">
         <tw-swipe :imgs="imgs">
@@ -49,20 +49,32 @@
       </section>
 
       <!-- 热门分类 -->
-      <section class="category">
+      <section v-category ref="category" class="category">
         <div class="category_title">
           <h4>热门分类</h4>
           <p>优质商品，实力厂家，满满优惠惊喜等着您</p>
         </div>
         <div class="category_list">
           <ul>
-            <li @click="currCate=index" v-for="(cate,index) in cates" :key="index" :class="index==currCate?'active':''">
+            <li @click="categoryChange(index)" v-for="(cate,index) in cates" :key="index" :class="index==currCate?'active':''">
               <span>{{cate.parent_name}}</span>
             </li>
           </ul>
-          <div class="category_content_list">
-            <div class="category-item">
-              <p>标题</p>
+          <div ref="contentList" class="category_content_list">
+            <div v-for="(cate,index) in cates" :key="index" class="category-item">
+              <div class="category-item-title">
+                <span class="vm"></span>
+                <p>{{cate.parent_name}}</p>
+                <span class="vm"></span>
+              </div>
+              <div class="clear category-item-imgs">
+                <div v-for="(imgs,i) in cate.child" :key="i" class="category-img">
+                  <a :href="'/product/categorylist?pid='+imgs.parent_category_id+'&cid='+imgs.category_id">
+                    <img :src="imgs.image_list" alt="">
+                    <p>{{imgs.category_name}}</p>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -88,7 +100,7 @@
 <script>
 import Vue from 'vue'
 import { Toast, Lazyload, Tabbar, TabbarItem } from 'vant'
-import { getSp, getSlide, getCategory } from '@/fetch/index'
+import { getSp, getSlide, getCategory, getCartNum } from '@/fetch/index'
 import twSwipe from './components/tw-swipe'
 
 import twMenu from '@tw/tw-menu'
@@ -98,6 +110,8 @@ import Special from './components/special'
 import Promotion from './components/promotion'
 import Activity from './components/activity'
 import Gifs from './components/gifs'
+
+import easeout from '@/modules/common/js/animation'
 Vue.use(Lazyload).use(Tabbar).use(TabbarItem)
 export default {
   components: {
@@ -117,14 +131,19 @@ export default {
       this.cates = res.data.data.cates
       console.log(this.cates)
     })
-  },
-  mounted () {
     getSp().then(res => {
       this.total_activitys = res.data.data.total_activitys
-      // let ul = this.$refs.jrtjul
-      // let ulWidth = this.total_activitys.special.length * 1.3 + 'rem'
-      // ul.style.width = ulWidth
     })
+    // 判断是否登录
+    let isLogin = document.querySelectorAll('#foot .is_login')[0].value
+    if (isLogin === 'true') {
+      getCartNum().then(res => {
+        this.cartNum = res.data
+      })
+    }
+  },
+  mounted () {
+
   },
   data () {
     return {
@@ -171,28 +190,7 @@ export default {
           url: '/user/favlist?goback=1'
         }
       ],
-      navs: [
-        {
-          iconclass: 'icon-shouye1',
-          text: '首页'
-        },
-        {
-          iconclass: 'icon-menu',
-          text: '快捷采购',
-          url: '/product/index.html?goback=1'
-        },
-        {
-          iconclass: 'icon-iconfontcart',
-          text: '采购车',
-          info: '5',
-          url: '/cart/index.html?goback=1'
-        },
-        {
-          iconclass: 'icon-wode',
-          text: '管理中心',
-          url: '/user/index.html?goback=1'
-        }
-      ],
+
       navActive: 0,
       menu: '首页',
       isActive: 'Special',
@@ -204,7 +202,12 @@ export default {
       },
       view: 'Special',
       cates: [],
-      currCate: 0
+      currCate: 0,
+      scroll: false,
+      scrollTimer: null,
+
+      cartNum: 0
+
     }
   },
   methods: {
@@ -220,11 +223,59 @@ export default {
         cxul.style.width =
           this.total_activitys.promotion[0].goods_list.length * 1.3 + 'rem'
       }
+    },
+    /** 改变当前分类 */
+    categoryChange (index) {
+      this.currCate = index
+      this.scroll = true
+      let main = document.querySelectorAll('.main')[0]
+      let scrollTop = main.scrollTop
+      let offsetTop = this.$refs.category.offsetTop - 50
+      // 判断是否要将页面滚动到分类部分
+      if (scrollTop < offsetTop) {
+        main.scrollTop = offsetTop
+      }
+
+      // 计算当前分类距离页面的偏移量
+      let scrollHeight = document.querySelectorAll('.category-item')[index].offsetTop - document.querySelectorAll('.category_title')[0].offsetHeight - document.querySelectorAll('.header')[0].offsetHeight
+
+      easeout(main.scrollTop, scrollHeight, 6, function (value) {
+        main.scrollTop = value
+      }, function () {
+        clearTimeout(this.scrollTimer)
+        this.scrollTimer = setTimeout(() => {
+          this.scroll = false
+        }, 200)
+      }.bind(this))
     }
   },
   computed: {
     promotion () {
       return this.total_activitys.promotion[this.promotionIndex]
+    },
+    navs () {
+      return [
+        {
+          iconclass: 'icon-shouye1',
+          text: '首页'
+        },
+        {
+          iconclass: 'icon-menu',
+          text: '快捷采购',
+          url: '/product/index.html?goback=1'
+        },
+        {
+          iconclass: 'icon-iconfontcart',
+          text: '采购车',
+          info: this.cartNum,
+          url: '/cart/index.html?goback=1'
+        },
+        {
+          iconclass: 'icon-wode',
+          text: '管理中心',
+          url: '/user/index.html?goback=1'
+        }
+      ]
     }
   },
   directives: {
@@ -234,12 +285,52 @@ export default {
         document
           .getElementsByClassName('main')[0]
           .addEventListener('scroll', function () {
+            /** 处理头部搜索框 */
             var t = this.scrollTop
             if (t > swipe.clientHeight) {
               el.style.background = '#00c58d'
             } else {
               el.style.background = 'transparent'
             }
+          })
+      }
+    },
+    category: {
+      inserted: function (el, c, vnode) {
+        let categoryUl = []
+        let categoryLi = []
+        /** 处理分类 */
+        document
+          .getElementsByClassName('main')[0]
+          .addEventListener('scroll', function () {
+            let top = this.scrollTop + document.querySelectorAll('.header')[0].offsetHeight
+            let categoryOffsetTop = el.offsetTop
+            if (top >= categoryOffsetTop) {
+              el.classList.add('on')
+            } else {
+              if (el.classList.contains('on')) {
+                el.classList.remove('on')
+              }
+            }
+            if (vnode.context.scroll) {
+              return
+            }
+            // 计算分类列表的偏移量
+            top = top + document.querySelectorAll('.category_title')[0].offsetHeight
+            let categorys = document.querySelectorAll('.category-item')
+            let cateIndex = 0
+            for (let index = 0; index < categorys.length; index++) {
+              const item = categorys[index]
+              if (item.offsetTop - top <= 0) {
+                cateIndex = index
+              }
+            }
+            vnode.context.currCate = cateIndex
+            if (!(categoryUl.length > 0 && categoryLi.length > 0)) {
+              categoryUl = document.querySelectorAll('.category_list ul')
+              categoryLi = document.querySelectorAll('.category_list li')
+            }
+            categoryUl[0].scrollTop = categoryLi[cateIndex].offsetTop
           })
       }
     }
@@ -261,6 +352,7 @@ export default {
     top: 0;
     z-index: 888;
     line-height: 0.5rem;
+    height: .5rem;
     // background-color: #00c58d;
     background-color: transparent;
     .layout(row);
@@ -302,7 +394,6 @@ export default {
     padding: 5px;
     box-sizing: border-box;
     background-color: #fff;
-    border-top: 1px solid #f3f3f3;
   }
   .main {
     flex: 1;
@@ -376,6 +467,7 @@ export default {
           p {
             text-align: left;
             font-size: 0.14rem;
+            height: .2rem;
             &.name {
               white-space: nowrap;
               text-overflow: ellipsis;
@@ -442,7 +534,23 @@ export default {
         }
       }
     }
-
+    .category.on {
+      .category_title ,.category_list > ul{
+        position: fixed;
+        top: .5rem;
+        left: 0;
+        z-index: 555;
+      }
+      .category_list > ul {
+        top: 1.11rem;
+        height: 5.06rem;
+        overflow-y: scroll;
+      }
+      .category_content_list {
+        margin-top: .61rem;
+        margin-left: .91rem;
+      }
+    }
     .category .category_title {
       width: 100%;
       height: .6rem;
@@ -468,6 +576,7 @@ export default {
           display: inline-block;
           height: .55rem;
           width: 100%;
+          box-sizing: border-box;
           border-bottom: 1px solid #e1e1e1;
           border-right: 1px solid #e1e1e1;
           span {
@@ -491,6 +600,42 @@ export default {
         flex: 1;
       }
     }
+    .category .category_content_list {
+      height: 100%;
+      .category-item {
+        line-height: .55rem;
+        color: #00aaef;
+        position: relative;
+        &:last-child{
+          min-height: calc(100vh - 1.5rem);
+        }
+        .category-item-title > p {
+          display: inline;
+          padding: 0 .10rem;
+        }
+        .vm {
+          width: .46rem;
+          display: inline-block;
+          border-bottom: 1px solid #ccc;
+          vertical-align: middle;
+        }
+      }
+    }
+    .category .category-item-imgs {
+      .category-img {
+        display: inline-block;
+        float: left;
+        padding: .1rem .05rem;
+      }
+      img {
+        width: .82rem;
+        height: .82rem;
+      }
+      p {
+        line-height: .15rem;
+        font-size: .15rem;
+      }
+    }
   }
 }
 .gray {
@@ -499,6 +644,6 @@ export default {
 
 .van-icon__info {
     left: 119%;
-    top: -.10em;
+    top: -.20em;
 }
 </style>

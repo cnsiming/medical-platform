@@ -9,7 +9,7 @@
             <li v-for="(item,index) in promotion[promotionIndex].goods_list" :key="index">
                 <a :href="'/product/promotiondetail?id='+selectPromotion.id+'&goback=1'">
                     <img v-lazy="item.imgage" :alt="item.general_name">
-                    <p class="text-overflow pro-title">{{item.general_name}}</p>
+                    <p class="text-overflow pro-title text-overflow">{{item.general_name}}</p>
                     <p class="text-overflow gray">{{item.norms}}</p>
                     <p class="text-overflow name gray">{{item.produce_unit}}</p>
                     <p class="text-overflow price">{{item.price}}</p>

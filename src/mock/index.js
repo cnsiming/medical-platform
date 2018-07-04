@@ -116,15 +116,15 @@ mock.mock(setUrl('home/slide'), {
 
 mock.mock(setUrl('home/category'), {
   data: {
-    'cates|6-11': [
+    'cates|10-15': [
       {
         'parent_id|+1': 0,
         parent_name: '@cname',
-        'child|0-9': [
+        'child|1-9': [
           {
             'category_id|1-100': 0,
             category_name: '@cname',
-            'image_list': Random.image('100x100', '#f3f3f3'),
+            'image_list': Random.image('100x100', '#fff'),
             'parent_category_id|+1': 0
           }
         ]
@@ -132,3 +132,5 @@ mock.mock(setUrl('home/category'), {
     ]
   }
 })
+
+mock.mock(setUrl('cart/getnum'), 10)
