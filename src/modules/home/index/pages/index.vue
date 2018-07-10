@@ -349,29 +349,21 @@ export default {
                 cateIndex = index
               }
             }
-            categoryUl =
-              categoryUl || document.querySelector('.category_list ul')
-            categoryLi =
-              categoryLi || document.querySelectorAll('.category_list li')
+            categoryUl = categoryUl || document.querySelector('.category_list ul')
 
-            categoryUlList =
-              categoryUlList || document.querySelector('.category_ul_list')
+            categoryLi = categoryLi || document.querySelectorAll('.category_list li')
+
+            categoryUlList = categoryUlList || document.querySelector('.category_ul_list')
 
             // 当前的 li 距离父容器的距离 加上自己的高度 大于 ul list 的高度后，进行滚动
-            let liOffsetTop =
-              categoryLi[cateIndex].offsetTop +
-              categoryLi[cateIndex].offsetHeight
+            let liOffsetTop = categoryLi[cateIndex].offsetTop + categoryLi[cateIndex].offsetHeight + categoryUlList.scrollTop
 
             if (liOffsetTop > categoryUlList.offsetHeight) {
               // 需要滚动的距离 = 当前的 li 距离父容器的距离 加上自己的高度  - 父容器的高度
-              categoryUlList.scrollTop =
-                liOffsetTop - categoryUlList.offsetHeight
+              categoryUlList.scrollTop = liOffsetTop - categoryUlList.offsetHeight
             } else {
               // 向上滚动的时候
-              if (
-                categoryLi[cateIndex].offsetTop - categoryUlList.scrollTop <
-                0
-              ) {
+              if (categoryLi[cateIndex].offsetTop - categoryUlList.scrollTop < 0) {
                 categoryUlList.scrollTop = categoryLi[cateIndex].offsetTop
               }
             }
@@ -659,7 +651,7 @@ export default {
       }
       .category_list > .category_ul_list {
         top: 1.11rem;
-        height: calc(100vh - 1.6rem);
+        height: calc(100vh - 1.65rem);
         overflow-y: scroll;
       }
       .category_content_list {
@@ -675,8 +667,8 @@ export default {
       background-size: cover;
       border-bottom: 1px solid #ccc;
       h4 {
-        font-size: 0.15rem;
-        line-height: 0.3rem;
+        font-size: 0.18rem;
+        line-height: 0.35rem;
       }
       p {
         font-size: 0.11rem;

@@ -17,7 +17,9 @@ var easeout = function (start, end, rate, callback, endCallback) {
     start = start + (end - start) / rate
     if (Math.abs(start - _end) < 1) {
       if (typeof endCallback === 'function') {
-        endCallback()
+        setTimeout(() => {
+          endCallback()
+        }, 100)
       }
       callback(end, true)
       return

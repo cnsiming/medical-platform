@@ -16,7 +16,7 @@
             </div>
           </div>
           <div class="header-right center">
-              <i class="icon icon-saoyisao"></i><br>
+              <i class="icon icon-saoyisao f18"></i><br>
               <span>扫一扫</span>
           </div>
       </header>
@@ -164,7 +164,6 @@ export default {
       display: inline-block;
       box-sizing: border-box;
       position: absolute;
-      vertical-align: top;
       padding: 0 0 0 0.05rem;
       line-height: 0.3rem;
       color: #666;
@@ -181,15 +180,14 @@ export default {
       }
     }
     .search-input {
+      width: 100%;
       height: 100%;
-      line-height: 100%;
       border: 0;
       box-sizing: border-box;
-      vertical-align: top;
-      padding-left: 0.05rem;
-      width: 100%;
       border-radius: 0.04rem;
       padding-left: .55rem;
+      display: inherit;
+      line-height: 1;
       color: #666;
     }
   }

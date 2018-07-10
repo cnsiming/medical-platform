@@ -5,9 +5,10 @@ import qs from 'qs'
  * @param 请求参数 params
  */
 export async function keywordSearch (params) {
-  let res = await RQ.post('json/search', qs.stringify({
+  let str = qs.stringify({
     type: params.type,
     keyword: params.keyword
-  }))
+  })
+  let res = await RQ.get('json/search?' + str)
   return res
 }
