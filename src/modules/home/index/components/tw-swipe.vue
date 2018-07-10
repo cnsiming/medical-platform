@@ -24,7 +24,9 @@ export default {
 <style lang="less">
 .tw-swipe {
   height: 1.8rem;
+  width: 100%;
   img {
+    display: inline-block;
     width: 100%;
     height: 1.8rem;
   }

@@ -31,6 +31,10 @@ exports.cssLoaders = function(options) {
             plugins: [
                 require('postcss-sprites')({
                     spritePath: 'dist/img/sprites'
+                }),
+                require('postcss-pxtorem')({
+                    rootValue: 100,
+                    propList: ['*']
                 })
             ]
         },

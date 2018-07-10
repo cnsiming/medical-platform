@@ -1,14 +1,14 @@
 <template>
     <!-- 今日特价 -->
-    <div ref="content" class="content jrtj" style="height: 2.20rem;">
-        <ul class="card" :style="{width: special.length * 1.3 +'rem'}">
+    <div ref="content" class="content jrtj">
+        <ul class="card clear" :style="{width: special.length * 1.3 +'rem'}">
         <li v-for="(item,index) in special" :key="index">
             <a :href="'/product/detail?id='+item.id+'&goback=1'">
               <img v-lazy="item.image" :alt="item.general_name">
-              <p class="f18 pro-title text-overflow">{{item.general_name}}</p>
-              <p class="f18 gray">{{item.norms}}</p>
-              <p class="f18 name gray">{{item.produce_unit}}</p>
-              <p class="f18 price">{{item.current_price}}</p>
+              <p class="pro-title text-overflow">{{item.general_name}}</p>
+              <p class="gray">{{item.norms}}</p>
+              <p class="name gray">{{item.produce_unit}}</p>
+              <p class="price">{{item.current_price}}</p>
               <tw-countdowntime :endTime="item.end_date"></tw-countdowntime>
             </a>
         </li>
@@ -35,7 +35,7 @@ export default {
   },
   activated () {
     console.log('update')
-    document.getElementsByClassName('tab-content')[0].style.height = this.$refs.content.clientHeight + 'px'
+    document.getElementsByClassName('tab-content')[0].style.height = 'auto'
   }
 }
 </script>

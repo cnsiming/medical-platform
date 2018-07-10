@@ -42,10 +42,11 @@ export default {
   },
   mounted () {
     this.update()
-    this.timer = setInterval(this.update, 1000)
+    // this.timer = setInterval(this.update, 1000)
   },
   destroyed () {
     clearInterval(this.timer)
+    this.timer = null
   }
 }
 </script>

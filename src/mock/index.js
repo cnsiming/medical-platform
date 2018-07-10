@@ -7,6 +7,7 @@ function setUrl (url) {
 const endDates = [1534743668, 1538365874, 1540967077, 1543560295, 1533052799]
 const normss = ['30克（15粒）', '9g*10丸', '6g*6袋', '6g*12袋', '11g*10袋']
 const produceUnits = ['肇庆申氏三九医药有限公司', '成都恒瑞制药', '贵州恒和制药', '拜耳医药保健有限公司']
+
 mock.mock(setUrl('home/sp'), {
   code: 1,
   data: {
@@ -134,3 +135,14 @@ mock.mock(setUrl('home/category'), {
 })
 
 mock.mock(setUrl('cart/getnum'), 10)
+
+mock.mock(setUrl('json/search'), {
+  'state|0-1': 1,
+  'data|8-15': [{
+    general_name: '@cname',
+    image_list: [
+      '@cname',
+      '/picture/home/ungoodsphoto.png'
+    ]
+  }]
+})

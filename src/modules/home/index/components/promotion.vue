@@ -1,5 +1,5 @@
 <template>
-    <div ref="content" class="content" style="height: 2.75rem;">
+    <div ref="content" class="content" style="height: 2.55rem;">
         <div class="promotion">
         <ul>
             <li :class="promotionIndex===index?'active':''" v-for="(item,index) in promotion" :key="index" @click="togglePromotion(index)">套餐{{index+1}}</li>
@@ -65,6 +65,7 @@ export default {
   activated () {
     document.getElementsByClassName('tab-content')[0].style.height = this.$refs.content.clientHeight + 'px'
   }
+
 }
 </script>
 

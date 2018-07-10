@@ -1,6 +1,105 @@
 ${require("html-loader!@/layout/header.html")}
 
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+<div id="app">
+  <style>
+    body {
+        background-color: #fff;
+    }
+
+    .skeletion-header {
+      height: 1.8rem;
+      background: #F5F3F3;
+    }
+
+    .menu-wrapper {
+      background-color: #fff;
+      margin-bottom: 0.05rem;
+    }
+
+    .tw-menu {
+      background-color: #fff;
+      width: 100%;
+      position: absolute;
+      top: 1.8rem;
+      left: 0;
+    }
+
+    .tw-menu-item {
+      width: 24%;
+      display: inline-block;
+      box-sizing: border-box;
+      padding: 0.05rem;
+      text-align: center;
+    }
+
+    .tw-menu-item .img {
+      width: .5rem;
+      height: .5rem;
+      border-radius: 50%;
+      display: inline-block;
+      text-align: center;
+      background: #F5F3F3;
+    }
+
+    .tw-menu-item>p {
+      height: 0.14rem;
+      background-color: #F5F3F3;
+      width: 80%;
+      display: inline-block;
+    }
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: .5rem;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 3px 14px 2px rgba(0,0,0,.12);
+    }
+  </style>
+  <div class="skeletion-header">
+
+  </div>
+
+  <div class="tw-menu">
+    <div class="tw-menu-item">
+      <div class="img"></div>
+      <p></p>
+    </div>
+    <div class="tw-menu-item">
+      <div class="img"></div>
+      <p></p>
+    </div>
+    <div class="tw-menu-item">
+      <div class="img"></div>
+      <p></p>
+    </div>
+    <div class="tw-menu-item">
+      <div class="img"></div>
+      <p></p>
+    </div>
+    <div class="tw-menu-item">
+      <div class="img"></div>
+      <p></p>
+    </div>
+    <div class="tw-menu-item">
+      <div class="img"></div>
+      <p></p>
+    </div>
+    <div class="tw-menu-item">
+      <div class="img"></div>
+      <p></p>
+    </div>
+    <div class="tw-menu-item">
+      <div class="img"></div>
+      <p></p>
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+</div>
+<!-- built files will be auto injected -->
 
 ${require("html-loader!@/layout/footer.html")}
