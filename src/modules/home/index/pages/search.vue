@@ -11,7 +11,7 @@
                 <div class="search-code" @click="rotate">
                     <span style="vertical-align: top;" class="f14">{{searchCode}}</span><span style="vertical-align: top;" class="f10 inline code-icon">{{isRotate?'▲':'▼'}} </span>
                 </div>
-                <input ref="searchInput" placeholder="搜索" class="search-input f14" v-model="searchKeyword" type="text" @keyup="keyword">
+                <input ref="searchInput" placeholder="搜索" class="search-input f14" v-model="searchKeyword" type="text" @input="keyword">
                 <i style="color: #ccc;" class="icon icon-search f18"></i>
             </div>
           </div>
@@ -24,13 +24,8 @@
         <!-- 热门搜索 -->
         <section class="hot-search">
           <h2>热门搜索</h2>
-          <ul class="hot-search-list">
-            <li class="hot-search-item center f10 red">255</li>
-            <li class="hot-search-item center f10 red">RX</li>
-            <li class="hot-search-item center f10 red">fg</li>
-            <li class="hot-search-item center f10">感冒</li>
-            <li class="hot-search-item center f10">搜身</li>
-            <li class="hot-search-item center f10">驱寒</li>
+          <ul class="hot-search-list" >
+            <li class="hot-search-item center f10" v-for="(item,index) in hosSearch" :key="index" :class="index < 3 ? 'red': ''">{{item}}</li>
           </ul>
         </section>
         <section class="key-search">
@@ -46,7 +41,7 @@
 <script>
 import Vue from 'vue'
 import { Actionsheet, Toast } from 'vant'
-import { keywordSearch } from '@/fetch/search'
+import { keywordSearch, hotSearch } from '@/fetch/search'
 Vue.use(Actionsheet)
 export default {
   name: 'search',
@@ -67,11 +62,20 @@ export default {
           callback: this.clickCode
         }
       ],
+      hosSearch: [],
+
       searchCode: '综合',
       searchType: 1,
       searchKeyword: '',
       searchList: []
     }
+  },
+  created () {
+    hotSearch()
+      .then(res => {
+        let data = res.data
+        this.hosSearch = data.data
+      })
   },
   activated () {
     this.autofocus()
@@ -160,7 +164,6 @@ export default {
     text-align: left;
     position: relative;
     .search-code {
-      display: inline-block;
       box-sizing: border-box;
       position: absolute;
       padding: 0 0 0 0.05rem;
@@ -184,8 +187,11 @@ export default {
       border: 0;
       box-sizing: border-box;
       border-radius: 0.04rem;
+      line-height: normal;
+      padding: 0.08rem 0;
       padding-left: .55rem;
-      display: inherit;
+      padding-right: .25rem;
+      display: block;
       color: #666;
     }
   }
@@ -199,14 +205,15 @@ export default {
     color: #666;
   }
   .hot-search-list{
-    padding-bottom: .1rem;
+    .layout('row');
+    padding: 0 1%;
     .hot-search-item {
       display: inline-block;
       width: 30%;
       height: .26rem;
       line-height: .26rem;
       background-color: #fff;
-      margin: 0 1% .1rem;
+      margin: 0 0 .1rem .1rem;
     }
   }
 }
@@ -215,7 +222,6 @@ export default {
   overflow-y: scroll;
 }
 .key-search {
-
   .search-item {
     line-height: .35rem;
     height: .35rem;

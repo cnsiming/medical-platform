@@ -647,16 +647,16 @@ export default {
       }
     }
     .category.on {
-      .category_title,
-      .category_list > .category_ul_list {
+      .category_title {
         position: fixed;
         top: 0.5rem;
         z-index: 1;
       }
       .category_list > .category_ul_list {
+        position: fixed;
         top: 1.11rem;
-        height: calc(100vh - 1.65rem);
-        overflow-y: scroll;
+        height: calc(100vh - 1.6rem);
+        overflow: scroll;
       }
       .category_content_list {
         margin-top: 0.61rem;

@@ -34,7 +34,6 @@ export default {
     return {}
   },
   activated () {
-    console.log('update')
     document.getElementsByClassName('tab-content')[0].style.height = 'auto'
   }
 }

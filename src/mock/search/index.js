@@ -14,4 +14,11 @@ mock.mock(/json\/search/, {
     ]
   }]
 })
+
+mock.mock('json/hotsearch', {
+  state: 1,
+  'data|2-6': [
+    '@cname'
+  ]
+})
 export default mock

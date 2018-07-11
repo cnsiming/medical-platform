@@ -12,3 +12,8 @@ export async function keywordSearch (params) {
   let res = await RQ.get('json/search?' + str)
   return res
 }
+
+export async function hotSearch () {
+  let res = await RQ.post('json/hotsearch')
+  return res
+}
