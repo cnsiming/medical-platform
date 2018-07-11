@@ -9,7 +9,7 @@
           <i class="icon icon-search"></i>
         </div>
       </section>
-      <section class="header-right"><i class="icon icon-xiaoxi f24"></i></section>
+      <section class="header-right"><a href="/notification/index?goback=1"><i class="icon icon-xiaoxi f24"></i></a></section>
     </header>
     <main ref="main" class="main">
       <!-- 轮播图 -->
@@ -499,6 +499,10 @@ export default {
     }
     .header-right {
       width: 0.5rem;
+      > a {
+        display: inline-block;
+        width: 100%;
+      }
     }
     .icon {
       color: #fff;

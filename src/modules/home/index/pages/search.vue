@@ -100,7 +100,6 @@ export default {
     },
     keyword () {
       if (this.searchKeyword) {
-        console.log(this.searchKeyword)
         keywordSearch({
           type: this.searchType,
           keyword: this.searchKeyword
@@ -187,7 +186,6 @@ export default {
       border-radius: 0.04rem;
       padding-left: .55rem;
       display: inherit;
-      line-height: 1;
       color: #666;
     }
   }
