@@ -305,10 +305,10 @@ export default {
   directives: {
     scroll: {
       inserted: function (el) {
-        let swipe = document.getElementsByClassName('tw-swipe')[0]
+        let swipe = document.querySelector('.swipe-wrapper')
         let header = el
         document
-          .getElementsByClassName('main')[0]
+          .querySelector('.main')
           .addEventListener('scroll', function () {
             /** 处理头部搜索框 */
             var t = this.scrollTop
