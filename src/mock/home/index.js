@@ -99,7 +99,11 @@ mock.mock('home/sp', {
         unit: '盒',
         userid: 0
       }]
-    }
+    },
+    'adbanner_image_list|0-5': [{
+      url: 'http:111',
+      image: Random.image('1000x100', '#f3f3f3')
+    }]
   }
 })
 

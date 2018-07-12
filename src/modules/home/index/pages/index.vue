@@ -14,8 +14,9 @@
     <main ref="main" class="main">
       <!-- 轮播图 -->
       <section class="swipe-wrapper">
-        <tw-swipe :imgs="imgs">
-        </tw-swipe>
+        <van-swipe :show-indicators="showIndicators" :autoplay="3000" style="height: 1.8rem" >
+          <van-swipe-item v-for="(item,index) in imgs" :key="index"><img style="height: 1.8rem" v-lazy="item"></van-swipe-item>
+        </van-swipe>
       </section>
 
       <!-- 菜单 -->
@@ -28,15 +29,15 @@
 
       <!-- 活动专区 导航栏 -->
       <section class="activity-wrapper">
-        <div class="tab-wrapper">
-          <span :class="isActive==='Special'?'active':''" @click="tabClick('Special')">今日特价</span>
-          <span :class="isActive==='Promotion'?'active':''" @click="tabClick('Promotion')">促销套餐</span>
+        <div class="tab-wrapper" >
+          <span v-for="(item,index) in activitys" :key="index" :class="isActive=== item.name?'active':''" @click="tabClick(item.name,index)">{{item.value}}</span>
+          <!-- <span :class="isActive==='Promotion'?'active':''" @click="tabClick('Promotion')">促销套餐</span>
           <span :class="isActive==='Activity'?'active':''" @click="tabClick('Activity')">活动专区</span>
-          <span :class="isActive==='Gifs'?'active':''" @click="tabClick('Gifs')">采满有赠</span>
+          <span :class="isActive==='Gifs'?'active':''" @click="tabClick('Gifs')">采满有赠</span> -->
           <span><a href="/product/speciallist?type=now_day&goback=1">更多></a></span>
         </div>
         <div class="tab-content clear">
-          <transition name="fade" mode="">
+          <transition :name="activeAnimation" mode="">
             <keep-alive>
               <component :is="view"
                 :special="total_activitys.special"
@@ -48,6 +49,13 @@
             </keep-alive>
           </transition>
         </div>
+      </section>
+
+      <!-- 广告通栏banner -->
+      <section class="adbanner" v-if="adBannerImgs.length != 0" style="height: 1rem;padding-bottom: 0.05rem">
+        <van-swipe :show-indicators="showIndicators" :autoplay="3000" style="height: 1rem" >
+          <van-swipe-item style="height: 1rem" v-for="(item,index) in adBannerImgs" :key="index"><img style="height: 1rem" v-lazy="item.image"></van-swipe-item>
+        </van-swipe>
       </section>
 
       <!-- 热门分类 -->
@@ -85,10 +93,6 @@
       </section>
     </main>
     <nav class="nav">
-      <!-- <tw-nav v-model="menu">
-        <tw-nav-item v-for="(nav,index) in navs" :key="index" :text="nav.text" :iconclass="nav.iconclass" @click="navClick">
-        </tw-nav-item>
-      </tw-nav> -->
       <van-tabbar v-model="navActive" @change="navChange">
         <van-tabbar-item v-for="(item,index) in navs" :key="index" :info="item.info" :url="item.url">
           <span style="font-size: .14rem;" :style="{color: index === navActive? '#0c9' : '#737373'}">{{item.text}}</span>
@@ -107,10 +111,8 @@
  * write a component's description
  */
 import Vue from 'vue'
-import { Toast, Lazyload, Tabbar, TabbarItem } from 'vant'
+import { Toast, Lazyload, Tabbar, TabbarItem, Swipe, SwipeItem } from 'vant'
 import { getSp, getSlide, getCategory, getCartNum } from '@/fetch/index'
-import twSwipe from '../components/tw-swipe'
-
 import twMenu from '@tw/tw-menu'
 import twMenuItem from '@tw/tw-menu-item'
 
@@ -123,9 +125,10 @@ import easeout from '@/modules/common/js/animation'
 Vue.use(Lazyload)
   .use(Tabbar)
   .use(TabbarItem)
+  .use(Swipe)
+  .use(SwipeItem)
 export default {
   components: {
-    twSwipe,
     twMenu,
     twMenuItem,
     Special,
@@ -142,10 +145,10 @@ export default {
     })
     getCategory().then(res => {
       this.cates = res.data.data.cates
-      console.log(this.cates)
     })
     getSp().then(res => {
       this.total_activitys = res.data.data.total_activitys
+      this.adBannerImgs = res.data.data.adbanner_image_list
     })
     try {
       // 判断是否登录
@@ -174,7 +177,9 @@ export default {
   },
   data () {
     return {
-      imgs: [],
+      imgs: [], // 上方轮播图
+      adBannerImgs: [], // 广告轮播图
+      showIndicators: false, // 是否显示轮播图指示器
       menus: [
         {
           img: '0.01rem 0.01rem;',
@@ -221,7 +226,21 @@ export default {
       navActive: 0,
       menu: '首页',
       isActive: 'Special',
-      activety: '',
+      activitys: [ {
+        name: 'Special',
+        value: '今日特价'
+      }, {
+        name: 'Promotion',
+        value: '促销套餐'
+      }, {
+        name: 'Activity',
+        value: '活动专区'
+      }, {
+        name: 'Gifs',
+        value: '采满有赠'
+      } ],
+      activeAnimation: 'slide-right',
+      preIndex: 0,
       total_activitys: {
         activity: [],
         special: [],
@@ -392,7 +411,9 @@ export default {
     /**
      * 点击tab栏切换活动类型
      */
-    tabClick (obj) {
+    tabClick (obj, index) {
+      this.activeAnimation = this.preIndex < index ? 'slide-right' : 'fade'
+      this.preIndex = index
       this.view = obj
       this.isActive = obj
       let cxul = this.$refs.cxul
