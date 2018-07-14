@@ -33,12 +33,13 @@ vue-mpa
 ├───────fetch                        # 后台api接口
 ├──────────index                        # index模块 api接口
 ├──────────search                       # 搜索模块 api接口
+├──────────login                        # 登录模块 api接口
 ├───────layout                       # 公共布局html
 ├───────mock                         # 模拟数据接口
 ├───────moudles                      # 各个模块
 ├──────────common                    # common模块
 ├──────────home                      # 首页模块
-├────────────pages                       # 页面存放文件夹 
+├────────────pages                       # 页面存放文件夹
 ├────────────router                      # 路由配置
 ├────────────components                       # 组件
 ├───static                           # 静态文件 绝对资源路径，不会被 Webpack 处理，它们会直接被复制到最终目录
