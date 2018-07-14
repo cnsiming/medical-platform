@@ -7,7 +7,7 @@
            <div class="container-img bhpt">
 
            </div>
-           <form class="form">
+           <div class="form">
                <van-cell-group>
                     <van-field class="f14" left-icon="yonghuming" v-model="username" placeholder="请输入账号" />
                     <van-field class="f14" autocomplete="false" left-icon="password-copy" type="password" v-model="password" placeholder="密码" />
@@ -26,7 +26,7 @@
                    <a href="#" class="f14">忘记密码 ？</a>
                    <a href="#" class="f14">注册新账号</a>
                </div>
-           </form>
+           </div>
        </main>
    </div>
 </template>
@@ -62,14 +62,24 @@ export default {
         Toast('用户名或密码不能为空')
         return
       }
+      const toast = Toast.loading({
+        duration: 0, // 持续展示 toast
+        forbidClick: true, // 禁用背景点击
+        loadingType: 'spinner',
+        message: '正在登录中'
+      })
       login({
         user: this.username,
         password: this.password,
         free_login: this.checked ? 1 : 0
       }).then(res => {
         if (res.data === 1) {
-          Toast.success('登录成功')
-          this.$router.replace('/index')
+          toast.message = '登录成功'
+          toast.type = 'success'
+          setTimeout(() => {
+            toast.clear()
+            this.$router.replace('/index')
+          }, 500)
         } else if (res.data === 2) {
           Toast('    抱歉，您的帐号尚未激活，请联系客服处理:' + this.tel)
         } else {
