@@ -8,9 +8,16 @@ import Index from '../pages/index.vue'
 const routes = [
   {
     path: '/search',
-    component: () => import('../pages/search.vue'),
+    component: () => import(/* webpackChunkName: 'grounp-search' */'../pages/search.vue'),
     meta: {
-      index: 1
+      index: 999
+    }
+  },
+  {
+    path: '/login',
+    component: () => import(/* webpackChunkName: 'login' */'../pages/login.vue'),
+    meta: {
+      index: 998
     }
   },
   {
@@ -18,8 +25,26 @@ const routes = [
     component: Index,
     meta: {
       index: 0
-    }
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('../pages/home.vue'),
+        meta: {
+          index: 1
+        }
+      },
+      {
+        path: 'product',
+        component: () => import(/* webpackChunkName: 'grounp-product' */ '../pages/product-index.vue'),
+        meta: {
+          index: 2
+        }
+      }
+    ]
+
   },
+
   {
     path: '*',
     redirect: '/index'

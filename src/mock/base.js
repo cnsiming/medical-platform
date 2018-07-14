@@ -15,147 +15,28 @@ class IMock {
   }
   Random = mock.Random
 }
+
 export default IMock
-/* const endDates = [1534743668, 1538365874, 1540967077, 1543560295, 1533052799]
-const normss = ['30克（15粒）', '9g*10丸', '6g*6袋', '6g*12袋', '11g*10袋']
-const produceUnits = ['肇庆申氏三九医药有限公司', '成都恒瑞制药', '贵州恒和制药', '拜耳医药保健有限公司']
 
-mock.mock(setUrl('home/sp'), {
-  code: 1,
+const imock = new IMock()
+
+imock.mock(/json\/activity/, {
   data: {
-    isemptystock: 0,
-    total_activitys: {
-      'special|1-10': [{
-        'id|+1': 0,
-        'batch_code': '20160702',
-        choose: 0,
-        fav: 0,
-        general_name: '@cname',
-        goodsstock: '1772',
-        hidestock: '1772',
-        image: Random.image('130x130', '#f3f3f3'),
-        is_view: 0,
-        'norms|1': normss,
-        current_price: '会员可见',
-        produce_unit: '肇庆申氏三九医药有限公司',
-        'product_id|1-1000': 0,
-        sale_range: 0,
-        state: 1,
-        stock: 1722,
-        unit: '盒',
-        userid: 0,
-        'end_date|1': endDates,
-        start_date: 1507521070
-      }],
-      'gift|1-10': [{
-        'id|2000-3000': 0,
-        'batch_code': '1501032',
-        choose: 0,
-        fav: 0,
-        general_name: '@cname',
-        goodsstock: '1772',
-        hidestock: '1772',
-        image: Random.image('130x130', '#f3f3f3'),
-        is_view: 0,
-        'norms|1': normss,
-        price: '会员可见',
-        'produce_unit|1': produceUnits,
-        'product_id|1-1000': 0,
-        sale_range: 0,
-        'product_id|2000-3000': 0,
-        state: 1,
-        stock: 1722,
-        unit: '盒',
-        userid: 0
-      }],
-      'promotion|1-10': [
-        {
-          'current_price': '会员可见',
-          'economize_price': 9.4,
-          'end_date|1': endDates,
-          'goods_list|1-10': [
-            {
-              general_name: '@cname',
-              imgage: Random.image('130x130', '#f5f5f5'),
-              'norms|1': normss,
-              price: '会员可见',
-              produce_unit: '齐名药业',
-              quantity: '1',
-              stock: 999,
-              unit: '盒'
-            }
-          ],
-          'id|1-9000': 0,
-          original_price: '59.40',
-          'post_date|1': endDates,
-          sale_range: 0,
-          'start_date|1': endDates,
-          state: 1,
-          stock: 199,
-          total: 200.00,
-          userid: 0
-        }
-      ],
-      'activity|1-10': [{
-        'id|2000-3000': 0,
-        'batch_code': '00000000',
-        choose: 0,
-        fav: 0,
-        general_name: '@cname',
-        goodsstock: '1772',
-        hidestock: '1772',
-        image: Random.image('130x130', '#f3f3f3'),
-        is_view: 0,
-        'norms|1': normss,
-        price: '会员可见',
-        'produce_unit|1': produceUnits,
-        'product_id|1-1000': 0,
-        sale_range: 0,
-        'product_id|2000-3000': 0,
-        state: 1,
-        stock: 1722,
-        unit: '盒',
-        userid: 0
-      }]
-    }
+    city_ids: '@boolean',
+    title: '大平台11',
+    content: '因为专业，所以值得您信赖！6月30日，’86医药在线‘ 全新上市，敬请关注！',
+    range: '0',
+    province_ids: '',
+    url: 'http://www.86yyzx.com',
+    interval: '1',
+    type: '0',
+    state: '1',
+    image: ' ',
+    member_id: null
   }
 })
+mock.mock('http://pv.sohu.com/cityjson?ie=utf-8',
+  'var returnCitySN = {"cip": "113.111.29.177", "cid": "440100", "cname": "广东省广州市"};'
+)
 
-mock.mock(setUrl('home/slide'), {
-
-  'imgs|1-10': [Random.image('300x250', '#f3f3f3')]
-
-})
-
-mock.mock(setUrl('home/category'), {
-  data: {
-    'cates|10-15': [
-      {
-        'parent_id|+1': 0,
-        parent_name: '@cname',
-        'child|1-9': [
-          {
-            'category_id|1-100': 0,
-            category_name: '@cname',
-            'image_list': Random.image('100x100', '#fff'),
-            'parent_category_id|+1': 0
-          }
-        ]
-      }
-    ]
-  }
-})
-
-mock.mock(setUrl('cart/getnum'), 10)
-
-mock.mock(setUrl('json/search'), {
-  'state|0-1': 1,
-  'data|8-15': [{
-    general_name: '@cname',
-    image_list: [
-      '@cname',
-      '/picture/home/ungoodsphoto.png'
-    ]
-  }]
-})
-*/
+imock.mock('visitor/login', 1)

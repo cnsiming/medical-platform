@@ -6,7 +6,6 @@ function _$ (selector) {
 function _$$ (selector) {
   return document.querySelectorAll(selector)
 }
-
 export default {
   _$,
   _$$

@@ -21,3 +21,8 @@ new Vue({
   template: '<Index/>',
   router
 })
+
+// 双指手势操作 取消双指放大
+document.addEventListener('gesturestart', function (event) {
+  event.preventDefault()
+})
