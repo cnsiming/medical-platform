@@ -40,7 +40,10 @@
               <div>
                 <span class="f14">包装规格：</span>
                 <div class="inline packs">
-                  <span v-if="product.pack.length!=0" v-for="(item,index) in product.pack" :key="index" class="pack f12" :class="item.is_pack==='on'?'active': 'disabled'">{{item.num}}/{{item.units}}</span>
+                  <span v-if="product.pack.length!=0" v-for="(item,index) in product.pack" :key="index" class="pack f12"
+                  :class="product.is_real_separate && item.is_pack==='on'?'active': 'disabled'">
+                    {{item.num}}/{{item.units}}
+                  </span>
                   <span v-else>{{product.unit}}</span>
                 </div>
               </div>
