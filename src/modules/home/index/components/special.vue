@@ -3,14 +3,16 @@
     <div ref="content" class="content jrtj">
         <ul class="card clear" :style="{width: special.length * 1.3 +'rem'}">
         <li v-for="(item,index) in special" :key="index">
-            <a :href="'/product/detail?id='+item.id+'&goback=1'">
+          <router-link to="/product/detail/1">
+            <!-- <a :href="'/product/detail?id='+item.id+'&goback=1'"> -->
               <img v-lazy="item.image" :alt="item.general_name">
               <p class="pro-title text-overflow">{{item.general_name}}</p>
               <p class="gray">{{item.norms}}</p>
               <p class="name gray">{{item.produce_unit}}</p>
               <p class="price">{{item.current_price}}</p>
               <tw-countdowntime :endTime="item.end_date"></tw-countdowntime>
-            </a>
+            <!-- </a> -->
+          </router-link>
         </li>
         </ul>
     </div>

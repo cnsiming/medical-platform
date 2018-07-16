@@ -42,9 +42,14 @@ const routes = [
         }
       }
     ]
-
   },
-
+  {
+    path: '/product/detail/:id',
+    component: () => import(/* webpackChunkName: 'grounp-product-detail' */'../pages/product-detail.vue'),
+    meta: {
+      index: 3
+    }
+  },
   {
     path: '*',
     redirect: '/index'

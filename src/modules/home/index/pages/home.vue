@@ -169,7 +169,7 @@ export default {
     return {
       imgs: [], // 上方轮播图
       adBannerImgs: [], // 广告轮播图
-      showIndicators: false, // 是否显示轮播图指示器
+      showIndicators: true, // 是否显示轮播图指示器
       menus: [
         {
           img: '0.01rem 0.01rem;',
@@ -723,5 +723,8 @@ export default {
       font-size: 0.15rem;
     }
   }
+}
+.van-swipe__indicator--active {
+  background: #007aff;
 }
 </style>
