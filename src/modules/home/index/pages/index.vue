@@ -44,24 +44,24 @@ export default {
     navs () {
       return [
         {
-          iconclass: 'icon-shouye1',
+          iconclass: 'van-icon-shouye1',
           text: '首页',
           url: '/index'
         },
         {
-          iconclass: 'icon-menu',
+          iconclass: 'van-icon-menu',
           text: '快捷采购',
           url: '/index/product'
           // url: '/product/index.html?goback=1'
         },
         {
-          iconclass: 'icon-iconfontcart',
+          iconclass: 'van-icon-iconfontcart',
           text: '采购车',
           info: this.cartNum >= 100 ? '99+' : this.cartNum,
           url: '/cart/index.html?goback=1'
         },
         {
-          iconclass: 'icon-wode',
+          iconclass: 'van-icon-wode',
           text: '管理中心',
           url: '/user/index.html?goback=1'
         }

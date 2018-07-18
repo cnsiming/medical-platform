@@ -6,13 +6,13 @@
       <section class="header-middle">
         <div>
           <input readonly @click="searchFocus" type="text" placeholder="搜索">
-          <i class="icon icon-search"></i>
+          <i class="icon van-icon-search"></i>
         </div>
       </section>
       <section class="header-right">
         <!-- <a href="/notification/index?goback=1"> -->
         <router-link to="/login">
-          <i class="icon icon-xiaoxi f24"></i>
+          <i class="icon van-icon-xiaoxi f24"></i>
         </router-link>
         <!-- </a> -->
         </section>

@@ -17,49 +17,7 @@
 .van-icon {
    font-family: 'vant-icon','iconfont' !important;
 }
-.icon-search:before {
-  content: "\e6ac";
-}
 
-.icon-xiaoxi:before {
-  content: "\e68b";
-}
-
-.icon-wode:before {
-  content: "\e69e";
-}
-
-.icon-shouye:before {
-  content: "\e635";
-}
-
-.icon-shouye1:before {
-  content: "\e629";
-}
-
-.icon-menu:before {
-  content: "\e684";
-}
-
-.icon-password-copy:before {
-  content: "\e600";
-}
-
-.icon-iconfontcart:before {
-  content: "\e614";
-}
-
-.van-icon-yonghuming:before {
-  content: "\e737";
-}
-
-.icon-saoyisao:before {
-  content: "\e7bb";
-}
-
-.icon-zuo-copy:before {
-  content: "\e638";
-}
 .van-icon-search:before {
   content: "\e6ac";
 }
@@ -92,6 +50,10 @@
   content: "\e614";
 }
 
+.van-icon-angle-down:before {
+  content: "\e601";
+}
+
 .van-icon-yonghuming:before {
   content: "\e737";
 }
@@ -106,4 +68,12 @@
 
 .van-icon-zuo-copy:before {
   content: "\e638";
+}
+
+.van-icon-aixin:before {
+  content: "\e611";
+}
+
+.van-icon-xinaixin:before {
+  content: "\e79d";
 }

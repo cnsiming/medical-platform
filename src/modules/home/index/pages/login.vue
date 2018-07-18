@@ -1,7 +1,7 @@
 <template>
    <div class="xpt-login">
        <header class="xpt-login-header">
-           <p @click="back"><span class="f16"><i class="icon icon-zuo-copy"></i>返回</span></p>
+           <p @click="back"><span class="f16"><i class="icon van-icon-zuo-copy"></i>返回</span></p>
        </header>
        <main class="xpt-login-container">
            <div class="container-img bhpt">
