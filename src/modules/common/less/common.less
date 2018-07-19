@@ -23,6 +23,17 @@ body {
     overflow: hidden;
     display: block;
 }
+
+.child-view {
+  position: absolute;
+  transition: all 0.3s ease-out;
+  max-width: 750px;
+  width: 100%;
+}
+.nav {
+  transition: .3s all ease-out;
+}
+
 /* animation start */
 .slide-left-enter-active {
   transform: translate3d(0%,0,0)
@@ -48,5 +59,9 @@ body {
 }
 .slide-right-leave-to {
   transform: translate3d(-100%,0,0);
+}
+/* 向下 */
+.slide-down {
+  transform: translate3d(0,100%,0)
 }
 /* animation end */

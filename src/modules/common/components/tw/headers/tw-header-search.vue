@@ -1,7 +1,7 @@
 <template>
    <header class="tw-header-search">
       <div class="header-left" @click="back">
-          <i class="icon icon-zuo-copy"></i><span>返回</span>
+          <i class="icon van-icon-zuo-copy"></i><span>返回</span>
       </div>
       <div class="header-middle">
         <div class="search-box">
@@ -9,11 +9,11 @@
               <span style="vertical-align: top;" class="f14">{{searchCode}}</span><span style="vertical-align: top;" class="f10 inline code-icon">{{isRotate?'▲':'▼'}} </span>
           </div> -->
           <input ref="searchInput" readonly placeholder="搜索" class="search-input f14" type="text" @click="searchFocus">
-          <i style="color: #ccc;" class="icon icon-search f18"></i>
+          <i style="color: #ccc;" class="icon van-icon-search f18"></i>
         </div>
       </div>
       <div class="header-right center">
-          <i class="icon icon-saoyisao f18"></i><br>
+          <i class="icon van-icon-saoyisao f18"></i><br>
           <span>扫一扫</span>
       </div>
    </header>
@@ -87,7 +87,7 @@ export default {
     }
   }
 }
-.icon.icon-search {
+.icon.van-icon-search {
   position: absolute;
   right: 0.05rem;
   top: -0.1rem;

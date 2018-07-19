@@ -23,11 +23,11 @@
           </van-cell>
           <van-cell>
             <div>
-              <span>供应价：<span class="red f18" v-cloak v-if="product.price">{{product.price | price('￥',2)}}</span></span>
+              <span>供应价：<span class="red f18" v-cloak v-if="product.price">{{product.current_price | price('￥',2)}}</span></span>
               <span style="float: right;" class="f14">建议零售价：<span class="f14">{{product.retail_price | price('￥',2)}}</span></span>
             </div>
           </van-cell>
-          <van-cell style="padding-top: .05rem;padding-bottom: .05rem;">
+          <van-cell style="margin-top: 0.05rem;">
             <div>
               <div class="inline gray f12" style="width: 45%">规格: {{product.norms}}</div>
               <div class="inline gray f12" style="width: 38%">库存: {{product.stock}}</div>
@@ -35,7 +35,7 @@
               <div class="gray f12">{{product.produce_unit}}</div>
             </div>
           </van-cell>
-          <van-cell style="padding-top: .05rem;" v-if="product.pack">
+          <van-cell v-if="product.pack">
             <div>
               <div>
                 <span class="f14">包装规格：</span>
@@ -75,7 +75,7 @@
                 <p>批准文号：<span>{{product.license}}</span></p>
               </div>
             </van-cell>
-            <van-cell @click="productSpecification">
+            <van-cell @click="productSpecification" style="margin-top: 0.05rem;">
               <div>
                 <i class="product-icon" style="background-position: 0 -.2rem;"></i> 商品说明书
               </div>
@@ -127,6 +127,7 @@
  * write a component's description
  */
 import Vue from 'vue'
+import bus from '@/eventbus'
 import { Toast, NavBar, Icon, Swipe, SwipeItem, ImagePreview, Cell, CellGroup, Stepper, Popup } from 'vant'
 import { productDetail, productGetdata } from '@/fetch/product'
 Vue.use(NavBar)
@@ -140,24 +141,6 @@ Vue.use(NavBar)
 export default {
   name: 'xpt-product-detail',
 
-  /**
-   * @description
-   * @returns {any}
-   */
-  data () {
-    return {
-      productNum: 1,
-      product: {},
-      active: -1,
-      disabled: -1,
-      showPopup: false,
-      popup: {
-        pTitle: '',
-        pContent: '',
-        iconName: ''
-      }
-    }
-  },
   filters: {
 
     /**
@@ -172,9 +155,27 @@ export default {
       if (typeof item === 'number') {
         return pre + item.toFixed(xx)
       } else if (typeof item === 'string') {
-        return pre + parseFloat(item).toFixed(xx)
+        if (isNaN(parseFloat(item))) {
+          return item
+        } else {
+          return pre + parseFloat(item).toFixed(xx)
+        }
       } else {
         return ''
+      }
+    }
+  },
+  data () {
+    return {
+      productNum: 1,
+      product: {},
+      active: -1,
+      disabled: -1,
+      showPopup: false,
+      popup: {
+        pTitle: '',
+        pContent: '',
+        iconName: ''
       }
     }
   },
@@ -182,14 +183,7 @@ export default {
    * @Vue组件创建完成后调用
    */
   created () {
-    let productId = this.$route.params.id
-    productDetail({id: productId}).then(res => {
-      console.log(res)
-      this.product = res.data
-      this.productNum = res.data.packNum || 1
-
-      this.packageSpecification()
-    })
+    this.getProductData()
   },
   computed: {
     productStep () {
@@ -199,9 +193,32 @@ export default {
       return 1
     }
   },
+  beforeRouteEnter (to, from, next) {
+    bus.$emit('navAnimation', true)
+    next()
+  },
+  beforeRouteLeave (to, from, next) {
+    bus.$emit('navAnimation', false)
+    this.$destroy()
+    next()
+  },
   methods: {
+    getProductData () {
+      let productId = this.$route.params.id
+      const toast = Toast.loading({
+        mask: true
+      })
+      productDetail({id: productId}).then(res => {
+        toast.clear()
+        console.log(res)
+        this.product = res.data
+        this.productNum = res.data.packNum || 1
+
+        this.packageSpecification()
+      })
+    },
     /**
-     * @description
+     * @返回
      */
     onClickLeft () {
       this.$router.back()
@@ -220,7 +237,7 @@ export default {
       ImagePreview(this.product.images, index)
     },
     /**
-     * @description
+     * @加入采购车
      */
     addCard () {
       Toast('Click addCart')
@@ -273,6 +290,9 @@ export default {
         this.showPopup = true
       })
     },
+    /**
+     * @description 关闭弹出层
+     */
     hidePopup () {
       this.showPopup = false
     }
@@ -284,6 +304,8 @@ export default {
 
 @import "../../../common/less/vars.less";
 .xpt-product-detail {
+  height: 100vh !important;
+  overflow-y: scroll;
   .product-img-box {
     width: 100%;
     height: 2.2rem;
@@ -300,7 +322,7 @@ export default {
   }
   .pack {
     box-sizing: border-box;
-    padding: 0.03rem 0.08rem;
+    padding: 0.01rem 0.08rem;
     border: 1px solid #ddd;
     border-radius: .02rem;
     &.active {
@@ -345,7 +367,6 @@ export default {
     .stepper {
       width: 40%;
       padding-top: .1rem;
-      height: .5rem;
     }
     .addCart {
       flex: 1;
@@ -407,7 +428,7 @@ export default {
     height: .27rem;
   }
   .van-cell {
-    padding: .05rem .15rem;
+    padding: .1rem .15rem;
   }
   .van-stepper__minus, .van-stepper__plus{
     height: .31rem;

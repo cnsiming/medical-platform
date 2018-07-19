@@ -3,7 +3,7 @@
     <div ref="content" class="content jrtj">
         <ul class="card clear" :style="{width: special.length * 1.3 +'rem'}">
         <li v-for="(item,index) in special" :key="index">
-          <router-link to="/product/detail/1">
+          <router-link :to="'/product/detail/' + item.goods_id">
             <!-- <a :href="'/product/detail?id='+item.id+'&goback=1'"> -->
               <img v-lazy="item.image" :alt="item.general_name">
               <p class="pro-title text-overflow">{{item.general_name}}</p>

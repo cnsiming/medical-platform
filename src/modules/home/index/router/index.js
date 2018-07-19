@@ -10,49 +10,55 @@ const routes = [
     path: '/search',
     component: () => import(/* webpackChunkName: 'grounp-search' */'../pages/search.vue'),
     meta: {
-      index: 999
+      index: 999,
+      keepAlive: false
     }
   },
   {
     path: '/login',
     component: () => import(/* webpackChunkName: 'login' */'../pages/login.vue'),
     meta: {
-      index: 998
+      index: 998,
+      keepAlive: false
     }
   },
   {
-    path: '/index',
+    path: '/',
     component: Index,
     meta: {
-      index: 0
+      index: 0,
+      keepAlive: true
     },
     children: [
       {
         path: '',
         component: () => import('../pages/home.vue'),
         meta: {
-          index: 1
+          index: 1,
+          keepAlive: true
         }
       },
       {
         path: 'product',
         component: () => import(/* webpackChunkName: 'grounp-product' */ '../pages/product-index.vue'),
         meta: {
-          index: 2
+          index: 2,
+          keepAlive: true
+        }
+      },
+      {
+        path: '/product/detail/:id',
+        component: () => import(/* webpackChunkName: 'grounp-product-detail' */'../pages/product-detail.vue'),
+        meta: {
+          keepAlive: false,
+          index: 3
         }
       }
     ]
   },
   {
-    path: '/product/detail/:id',
-    component: () => import(/* webpackChunkName: 'grounp-product-detail' */'../pages/product-detail.vue'),
-    meta: {
-      index: 3
-    }
-  },
-  {
     path: '*',
-    redirect: '/index'
+    redirect: '/'
   }
 ]
 const router = new VueRouter({

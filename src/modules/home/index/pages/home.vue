@@ -2,7 +2,7 @@
    <div class="home">
         <!-- 头部 -->
     <header v-scroll class="header">
-      <section class="header-left"><i class="icon icon-saoyisao f24"></i></section>
+      <section class="header-left"><i class="icon van-icon-saoyisao f24"></i></section>
       <section class="header-middle">
         <div>
           <input readonly @click="searchFocus" type="text" placeholder="搜索">
@@ -37,9 +37,6 @@
       <section class="activity-wrapper">
         <div class="tab-wrapper" >
           <span v-for="(item,index) in activitys" :key="index" :class="isActive=== item.name?'active':''" @click="tabClick(item.name,index)">{{item.value}}</span>
-          <!-- <span :class="isActive==='Promotion'?'active':''" @click="tabClick('Promotion')">促销套餐</span>
-          <span :class="isActive==='Activity'?'active':''" @click="tabClick('Activity')">活动专区</span>
-          <span :class="isActive==='Gifs'?'active':''" @click="tabClick('Gifs')">采满有赠</span> -->
           <span><a href="/product/speciallist?type=now_day&goback=1">更多></a></span>
         </div>
         <div class="tab-content clear">
@@ -161,6 +158,9 @@ export default {
   /**
    * 组件被复用时调用
    */
+  destroyed () {
+    console.log(1111)
+  },
   activated () {
     // 恢复滚动的距离
     document.querySelector('.main').scrollTop = this.scrollPosition
@@ -566,6 +566,9 @@ export default {
           &.price {
             color: @badgeColor;
           }
+        }
+        .pro-title {
+          color: #333;
         }
       }
     }

@@ -2,10 +2,12 @@
   <div id="index">
     <transition :name="transitionName" mode="">
       <keep-alive>
-        <router-view class="container"></router-view>
+        <router-view  class="container"></router-view>
       </keep-alive>
     </transition>
-    <nav class="nav">
+    <nav class="nav" :class="{
+      'slide-down': navSlideDown
+    }">
       <van-tabbar v-model="navActive" @change="navChange">
         <van-tabbar-item v-for="(item,index) in navs" :key="index" :info="item.info">
           <span style="font-size: .14rem;" :style="{color: index === navActive? '#0c9' : '#737373'}">{{item.text}}</span>
@@ -24,7 +26,7 @@
  */
 import Vue from 'vue'
 import { Lazyload, Tabbar, TabbarItem, Swipe, SwipeItem } from 'vant'
-
+import bus from '@/eventbus'
 Vue.use(Lazyload)
   .use(Tabbar)
   .use(TabbarItem)
@@ -37,8 +39,14 @@ export default {
       navActive: 0,
       transitionName: '',
       // 购物车数量
-      cartNum: 109
+      cartNum: 109,
+      navSlideDown: false
     }
+  },
+  mounted () {
+    bus.$on('navAnimation', (onoff) => {
+      this.navSlideDown = onoff
+    })
   },
   computed: {
     navs () {
@@ -63,7 +71,7 @@ export default {
         {
           iconclass: 'van-icon-wode',
           text: '管理中心',
-          url: '/user/index.html?goback=1'
+          url: '/login'
         }
       ]
     }
@@ -82,12 +90,13 @@ export default {
   },
   watch: {
     $route (to, from) {
+      this.navs.map((item, index) => {
+        if (item.url === to.path) {
+          this.navActive = index
+        }
+      })
       const toIndex = to.meta.index
       const fromIndex = from.meta.index
-      console.log({
-        toIndex,
-        fromIndex
-      })
       this.transitionName = toIndex > fromIndex ? 'slide-right' : 'slide-left'
     }
   }

@@ -13,6 +13,7 @@ mock.mock('home/sp', {
     total_activitys: {
       'special|1-10': [{
         'id|+1': 0,
+        'goods_id|+1': 1,
         'batch_code': '20160702',
         choose: 0,
         fav: 0,
@@ -24,7 +25,6 @@ mock.mock('home/sp', {
         'norms|1': normss,
         current_price: '会员可见',
         produce_unit: '肇庆申氏三九医药有限公司',
-        'product_id|1-1000': 0,
         sale_range: 0,
         state: 1,
         stock: 1722,

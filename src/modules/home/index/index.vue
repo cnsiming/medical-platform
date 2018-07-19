@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition :name="transitionName" mode="">
-      <keep-alive exclude="xpt-login">
+      <keep-alive>
         <router-view class="child-view"></router-view>
       </keep-alive>
     </transition>
@@ -25,10 +25,6 @@ export default {
     $route (to, from) {
       const toIndex = to.meta.index
       const fromIndex = from.meta.index
-      console.log({
-        toIndex,
-        fromIndex
-      })
       this.transitionName = toIndex > fromIndex ? 'slide-right' : 'slide-left'
     }
   },
@@ -78,12 +74,6 @@ export default {
 @import "../../common/less/vars.less";
 .header {
   background-color: transparent;
-}
-.child-view {
-  position: absolute;
-  transition: all 0.3s ease-out;
-  max-width: 750px;
-  width: 100%;
 }
 .van-dialog {
   width: 100%;
