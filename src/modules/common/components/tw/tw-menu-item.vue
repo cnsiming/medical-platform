@@ -39,7 +39,7 @@ export default {
       width: .5rem;
       height: .5rem;
       background-size: .5rem;
-      background-image: url(../../../../assets/squareIcon.png);
+      background-image: url(../../../../assets/imgs/squareIcon.png);
       background-repeat: no-repeat;
       background-position: 0.01rem 0;
     }

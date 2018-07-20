@@ -30,7 +30,14 @@ exports.cssLoaders = function(options) {
             ident: 'postcss',
             plugins: [
                 require('postcss-sprites')({
-                    spritePath: 'dist/img/sprites'
+                    retina: true, //支持retina，可以实现合并不同比例图片
+                    verbose: true,
+                    spritePath: 'dist/template/img/sprites', //雪碧图合并后存放地址
+                    // groupBy: function (image) {
+                    //     console.log(image);
+                    //   //将图片分组，可以实现按照文件夹生成雪碧图
+                    //   return image;
+                    // },
                 }),
                 require('postcss-pxtorem')({
                     rootValue: 100,

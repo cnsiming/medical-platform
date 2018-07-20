@@ -16,7 +16,13 @@ body {
 .center {
   text-align: center;
 }
-
+.text-del {
+  text-decoration: line-through;
+}
+.small_time {
+  background-image: url(../../../assets/imgs/small_time.png);
+  background-repeat: no-repeat;
+}
 .clear::after {
     content: ' ';
     clear: both;
@@ -26,12 +32,11 @@ body {
 
 .child-view {
   position: absolute;
-  transition: all 0.3s ease-out;
   max-width: 750px;
   width: 100%;
 }
-.nav {
-  transition: .3s all ease-out;
+.animation {
+  transition: .5s all ease-out;
 }
 
 /* animation start */
@@ -62,6 +67,10 @@ body {
 }
 /* 向下 */
 .slide-down {
-  transform: translate3d(0,100%,0)
+  transform: translate3d(0,100%,0);
+}
+/* 向上 */
+.slide-up {
+  transform: translate3d(0,-100%,0);
 }
 /* animation end */

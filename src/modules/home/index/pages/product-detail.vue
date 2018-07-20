@@ -17,81 +17,114 @@
         </van-swipe>
       </div>
       <div class="product-info">
-        <van-cell-group>
-          <van-cell>
-            <h1 style="height: 0.24rem;" v-html="product.goods_name"></h1>
-          </van-cell>
-          <van-cell>
-            <div>
-              <span>供应价：<span class="red f18" v-cloak v-if="product.price">{{product.current_price | price('￥',2)}}</span></span>
-              <span style="float: right;" class="f14">建议零售价：<span class="f14">{{product.retail_price | price('￥',2)}}</span></span>
-            </div>
-          </van-cell>
-          <van-cell style="margin-top: 0.05rem;">
-            <div>
-              <div class="inline gray f12" style="width: 45%">规格: {{product.norms}}</div>
-              <div class="inline gray f12" style="width: 38%">库存: {{product.stock}}</div>
-              <div class="inline gray f12">单位: {{product.unit}}</div>
-              <div class="gray f12">{{product.produce_unit}}</div>
-            </div>
-          </van-cell>
-          <van-cell v-if="product.pack">
-            <div>
-              <div>
-                <span class="f14">包装规格：</span>
-                <div class="inline packs">
-                  <span v-if="product.pack.length!=0" v-for="(item,index) in product.pack" :key="index" class="pack f12"
-                  :class="{
-                    'active': active === index,
-                    'disabled': disabled === index
-                  }"
-                  @click="packClick(index,item)"
-                  >
-                    {{item.num}}/{{item.units}}
-                  </span>
-                  <span v-else>{{product.unit}}</span>
-                </div>
-              </div>
-            </div>
-          </van-cell>
-        </van-cell-group>
+        <div style="background: #fff;">
+          <div class="cell">
+            <h1 v-html="product.goods_name"></h1>
+          </div>
 
-        <section style="margin-top: 0.08rem;">
-          <van-cell-group>
-            <van-cell>
-              <div>
-                <i class="product-icon"></i> 产品详情
-              </div>
-            </van-cell>
-            <van-cell style="padding: .05rem 0 .05rem 0.45rem;">
-              <div class="product-detail">
-                <div v-if="product.member_id && product.is_batch_name===0 && (product.batch_number.length == 0 || product.batch_number =='')">
-                  <p>供应批号：<span class="red">{{product.batch_code}}</span></p>
-                  <p>生产日期：<span class="red">{{product.produce_date}}</span></p>
-                  <p>有效日期：<span class="red">{{product.last_date}}</span></p>
-                </div>
-                <p>商品编码：<span>{{product.produce_code}}</span></p>
-                <p>产品类型：<span>{{product.product_cate}}</span></p>
-                <p>批准文号：<span>{{product.license}}</span></p>
-              </div>
-            </van-cell>
-            <van-cell @click="productSpecification" style="margin-top: 0.05rem;">
-              <div>
-                <i class="product-icon" style="background-position: 0 -.2rem;"></i> 商品说明书
-              </div>
-            </van-cell>
-            <van-cell>
-              <div>
-                <i class="product-icon" style="background-position: 0 -.4rem;"></i> 检验资料
-              </div>
-            </van-cell>
-            <van-cell>
-              <div>
-                <i class="product-icon" style="background-position: 0 -.6rem;"></i> 产品介绍
-              </div>
-            </van-cell>
-          </van-cell-group>
+          <div class="special-box" v-if="product.activity_type === 2">
+            <div class="inline special-left">
+              <span class="inline f14 xstj">限时特价</span>
+              <span class="inline f14" style="vertical-align: top;margin-top: 5px;">￥</span>
+              <span class="inline current_price">{{product.current_price | price('',2)}}</span>
+            </div>
+            <div class="inline special-right">
+              <p class="f10"><i class="inline small_time"></i>剩余时间</p>
+              <p>
+                <tw-countdowntime endTime="1538357201"></tw-countdowntime>
+              </p>
+              <i class="i_top"></i>
+              <i class="i_bottom"></i>
+            </div>
+          </div>
 
+          <div class="cell">
+            <span>
+              {{product.activity_type === 2?'原价':'供应价'}}：
+              <span :class="{
+                'text-del': product.activity_type === 2,
+                'f16': product.activity_type === 2,
+                'red': product.activity_type !== 2,
+                'f18': product.activity_type !== 2
+                }" v-cloak v-if="product.jiage">{{product.jiage | price('￥',2)}}</span>
+            </span>
+              <span style="float: right;" class="f14">建议零售价：<span class="f14">{{product.retail_price | price('￥',2)}}</span>
+            </span>
+            <div v-if="product.type === 2" style="line-height: .26rem;">
+              <p style="width: 40%" class=" f12 inline">
+                限购总数量：<span class="red f12">30</span>瓶
+              </p>
+              <p class="inline f12 ">
+                每单限购<span class="red f12">5</span>瓶
+              </p>
+            </div>
+            <div class="tags" v-if="product.type === 1 && product.gettag" >
+              <span v-for="(tag,index) in product.gettag" :key="index" class="inline f12 tag"
+              :style="{
+                'border-color': tag.color,
+                'color': tag.color}">{{tag.name}}</span>
+            </div>
+          </div>
+
+          <div class="cell">
+            <div class="inline gray f12" style="width: 45%">规格: {{product.norms}}</div>
+            <div class="inline gray f12" style="width: 38%">库存: {{product.stock}}</div>
+            <div class="inline gray f12">单位: {{product.unit}}</div>
+            <div class="gray f12">{{product.produce_unit}}</div>
+          </div>
+
+          <div class="cell" v-if="product.pack">
+            <div>
+              <span class="f14">包装规格：</span>
+              <div class="inline packs">
+                <span v-if="product.pack.length!=0" v-for="(item,index) in product.pack" :key="index" class="pack f12"
+                :class="{
+                  'active': active === index,
+                  'disabled': disabled === index
+                }"
+                @click="packClick(index,item)"
+                >
+                  {{item.num}}/{{item.units}}
+                </span>
+                <span v-else>{{product.unit}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section style="margin-top: 0.08rem;background: #fff;">
+          <div class="cell">
+            <div>
+              <i class="product-icon"></i> 产品详情
+            </div>
+          </div>
+          <div class="cell" style="padding: 0 .15rem;padding-right: 0;">
+            <div class="product-detail">
+              <div v-if="product.member_id && product.is_batch_name===0 && (product.batch_number.length == 0 || product.batch_number =='')">
+                <p>供应批号：<span class="red">{{product.batch_code}}</span></p>
+                <p>生产日期：<span class="red">{{product.produce_date}}</span></p>
+                <p>有效日期：<span class="red">{{product.last_date}}</span></p>
+              </div>
+              <p>商品编码：<span>{{product.produce_code}}</span></p>
+              <p>产品类型：<span>{{product.product_cate}}</span></p>
+              <p>批准文号：<span>{{product.license}}</span></p>
+            </div>
+          </div>
+          <div @click="productSpecification"  class="cell">
+            <div>
+              <i class="product-icon" style="background-position: 0 -.2rem;"></i> 商品说明书
+            </div>
+          </div>
+          <div class="cell">
+            <div>
+              <i class="product-icon" style="background-position: 0 -.4rem;"></i> 检验资料
+            </div>
+          </div>
+          <div class="cell border0">
+            <div>
+              <i class="product-icon" style="background-position: 0 -.6rem;"></i> 产品介绍
+            </div>
+          </div>
           <footer class="product-action">
             <div class="inline" style="width: 20%;height: 100%;">
               <div class="dbc_not">
@@ -128,19 +161,21 @@
  */
 import Vue from 'vue'
 import bus from '@/eventbus'
-import { Toast, NavBar, Icon, Swipe, SwipeItem, ImagePreview, Cell, CellGroup, Stepper, Popup } from 'vant'
+import { Toast, NavBar, Icon, Swipe, SwipeItem, ImagePreview, Stepper, Popup } from 'vant'
 import { productDetail, productGetdata } from '@/fetch/product'
+
+import twCountdowntime from '@tw/tw-countdowntime'
 Vue.use(NavBar)
   .use(Icon)
   .use(Swipe)
   .use(SwipeItem)
-  .use(Cell)
-  .use(CellGroup)
   .use(Stepper)
   .use(Popup)
 export default {
   name: 'xpt-product-detail',
-
+  components: {
+    twCountdowntime
+  },
   filters: {
 
     /**
@@ -213,7 +248,7 @@ export default {
         console.log(res)
         this.product = res.data
         this.productNum = res.data.packNum || 1
-
+        console.log(this.productStep)
         this.packageSpecification()
       })
     },
@@ -265,6 +300,7 @@ export default {
           if (pack[i].is_pack === 'on' || isFollowPack) {
             if (isFollowPack === false) {
               this.active = i
+              this.productNum = this.product.pack[this.active].num
               isFollowPack = true
             }
           } else {
@@ -320,9 +356,82 @@ export default {
   .product-info,.van-cell {
     color: #666;
   }
+  .product-info {
+    // background-color: #fff;
+    .special-box {
+      box-sizing: border-box;
+      height: .5rem;
+      padding: .05rem .1rem;
+      color: #fff;
+      text-align: left;
+      background-color: #e52735;
+      .special-left {
+        width: 2.17rem;
+        position: relative;
+        .xstj {
+          width: 2em;
+        }
+        .current_price {
+          font-size: .3rem;
+          color: #fffac5;
+          vertical-align: text-bottom;
+        }
+      }
+      .special-right {
+        float: right;
+        width: 1.48rem;
+        height: .5rem;
+        box-sizing: border-box;
+        background-image: url(../../../../assets/imgs/price_bg.gif);
+        margin-top: -0.05rem;
+        margin-right: -0.1rem;
+        text-align: center;
+        color: #803338;
+        padding: .05rem .1rem;
+        position: relative;
+        .small_time {
+          width: .16rem;
+          height: .2rem;
+          background-size: .13rem;
+          vertical-align: -webkit-baseline-middle;
+          background-repeat: no-repeat;
+        }
+        .tw-countdowntime {
+          top: .25rem;
+          left: 50%;
+          width: 100%;
+          transform: translateX(-50%);
+          b {
+            color: #e52735;
+            background-color: transparent;
+          }
+        }
+        .i_top,.i_bottom{
+          border-left: 13px solid #e52735;
+        }
+        .i_bottom {
+          width: 0px;
+          height: 0px;
+          border-top: 25px solid transparent;
+          position: absolute;
+          left: -0;
+          bottom: 0px;
+        }
+        .i_top {
+          width: 0px;
+          height: 0px;
+          border-bottom: 25px solid transparent;
+          position: absolute;
+          left: -0;
+          top: 0px;
+        }
+      }
+    }
+  }
   .pack {
     box-sizing: border-box;
-    padding: 0.01rem 0.08rem;
+    padding: 0.25em 0.08rem;
+    margin-right: .05rem;
     border: 1px solid #ddd;
     border-radius: .02rem;
     &.active {
@@ -343,9 +452,11 @@ export default {
     background-image: url(../../../../assets/detail_ico.png)
   }
   .product-detail {
+    padding-left: .3rem;
     p {
       border-bottom: 1px solid #e5e5e5;
       font-size: .14rem;
+      line-height: .3rem;
       padding: .03rem 0;
       > span {
         padding-left: .1rem;
@@ -356,6 +467,19 @@ export default {
       &:last-child {
         border-width: 0;
       }
+    }
+  }
+  .tags {
+    margin-top: .03rem;
+    .tag {
+      box-sizing: border-box;
+      height: .20rem;
+      line-height: .20rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 0px 5px;
+      font-family: 'SimHei';
+      margin-right: .02rem;
     }
   }
   .product-action {
@@ -406,6 +530,20 @@ export default {
       line-height: .4rem;
       padding:0 .15rem;
       color: #666;
+    }
+  }
+  .cell {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: .4rem;
+    line-height: .2rem;
+    padding: .1rem .15rem;
+    border-bottom: .01rem solid #e5e5e5;
+    text-align: left;
+    color: #666;
+    &.border0 {
+      border: 0;
     }
   }
   .van-nav-bar {

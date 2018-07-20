@@ -2,10 +2,10 @@
   <div id="index">
     <transition :name="transitionName" mode="">
       <keep-alive>
-        <router-view  class="container"></router-view>
+        <router-view class="animation container"></router-view>
       </keep-alive>
     </transition>
-    <nav class="nav" :class="{
+    <nav class="animation nav" :class="{
       'slide-down': navSlideDown
     }">
       <van-tabbar v-model="navActive" @change="navChange">
@@ -54,7 +54,7 @@ export default {
         {
           iconclass: 'van-icon-shouye1',
           text: '首页',
-          url: '/index'
+          url: '/'
         },
         {
           iconclass: 'van-icon-menu',
@@ -91,7 +91,7 @@ export default {
   watch: {
     $route (to, from) {
       this.navs.map((item, index) => {
-        if (item.url === to.path) {
+        if (item.url === this.$route.path) {
           this.navActive = index
         }
       })
@@ -124,7 +124,6 @@ export default {
   .container {
     flex: 1;
     width: 100%;
-    transition: all 0.3s ease-out;
     position: absolute;
     height: calc(100% - .5rem);
   }

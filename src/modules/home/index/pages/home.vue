@@ -1,7 +1,9 @@
 <template>
    <div class="home">
         <!-- 头部 -->
-    <header v-scroll class="header">
+    <header v-scroll class="header animation" :class="{
+        'slide-up': headerActive
+      }">
       <section class="header-left"><i class="icon van-icon-saoyisao f24"></i></section>
       <section class="header-middle">
         <div>
@@ -159,14 +161,15 @@ export default {
    * 组件被复用时调用
    */
   destroyed () {
-    console.log(1111)
   },
   activated () {
+    this.headerActive = false
     // 恢复滚动的距离
     document.querySelector('.main').scrollTop = this.scrollPosition
   },
   data () {
     return {
+      headerActive: false,
       imgs: [], // 上方轮播图
       adBannerImgs: [], // 广告轮播图
       showIndicators: true, // 是否显示轮播图指示器
@@ -369,6 +372,7 @@ export default {
    * 导航离开该组件的对应路由时调用
    */
   beforeRouteLeave (to, from, next) {
+    this.headerActive = true
     // 记录当前滚动的距离
     this.scrollPosition = document.querySelector('.home .main').scrollTop
     next()

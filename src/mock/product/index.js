@@ -4,7 +4,7 @@ const mock = new IMock()
 var Random = mock.Random
 mock.mock('product/jsondetail', {
   activity_introduc: '',
-  activity_type: 1,
+  'activity_type|1-5': 0,
   area_ids: false,
   bar_code: 'JF131005',
   batch_code: '00000000',
@@ -21,7 +21,10 @@ mock.mock('product/jsondetail', {
   erp_range_id: 0,
   'fav|0-1': 0,
   full_promotion_info: [],
-  gettag: false,
+  'gettag|0-3': [{
+    color: '#ff00ff',
+    name: '活动'
+  }],
   gift: 0,
   gifts: '',
   goods_name: '人胎盘注射液',
@@ -105,7 +108,7 @@ mock.mock('product/jsondetail', {
   tags: '',
   tax: '',
   total: 0,
-  type: 1,
+  type: '@activity_type',
   unit: '盒',
   warehouse_code: ''
 })
