@@ -136,4 +136,10 @@ mock.mock('product/getdata', {
 </p>`,
   tel: '0663-12345678'
 })
+
+mock.mock('user/setfav', {
+  data: [],
+  'state|0-1': 0,
+  text: '收藏成功or取消收藏'
+})
 export default mock

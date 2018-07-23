@@ -23,3 +23,14 @@ export async function productGetdata (param) {
   }))
   return res
 }
+
+/**
+ * 收藏商品
+ * @param {Object} param 请求参数
+ */
+export async function favorite (param) {
+  let res = await RQ.post('/user/setfav', qs.stringify({
+    id: param.id
+  }))
+  return res
+}

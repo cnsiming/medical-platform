@@ -127,8 +127,8 @@
           </div>
           <footer class="product-action">
             <div class="inline" style="width: 20%;height: 100%;">
-              <div class="dbc_not">
-                <van-icon v-if="product.fav==0" name="xinaixin" class="f20"></van-icon>
+              <div class="dbc_not" @click="favset(product.id)">
+                <van-icon v-if="fav==0" name="xinaixin" class="f20"></van-icon>
                 <van-icon v-else name="aixin" class="red f20"></van-icon>
               </div>
               <p class="center f14">收藏</p>
@@ -162,7 +162,7 @@
 import Vue from 'vue'
 import bus from '@/eventbus'
 import { Toast, NavBar, Icon, Swipe, SwipeItem, ImagePreview, Stepper, Popup } from 'vant'
-import { productDetail, productGetdata } from '@/fetch/product'
+import { productDetail, productGetdata, favorite } from '@/fetch/product'
 
 import twCountdowntime from '@tw/tw-countdowntime'
 Vue.use(NavBar)
@@ -211,7 +211,8 @@ export default {
         pTitle: '',
         pContent: '',
         iconName: ''
-      }
+      },
+      fav: 0
     }
   },
   /**
@@ -248,6 +249,7 @@ export default {
         console.log(res)
         this.product = res.data
         this.productNum = res.data.packNum || 1
+        this.fav = this.product.fav
         console.log(this.productStep)
         this.packageSpecification()
       })
@@ -265,7 +267,7 @@ export default {
       Toast('click right')
     },
     /**
-     * @description
+     * 图片放大
      * @param {any} index
      */
     imgPreView (index) {
@@ -311,7 +313,7 @@ export default {
       }
     },
     /**
-     * 商品说明书
+     * @description 商品说明书
      */
     productSpecification () {
       this.popup.pTitle = '商品说明书'
@@ -324,6 +326,16 @@ export default {
         console.log(res.data)
         this.popup.pContent = res.data.introduc
         this.showPopup = true
+      })
+    },
+    favset (id) {
+      const toast = Toast.loading()
+      favorite({
+        id: id
+      }).then(res => {
+        console.log(res.data)
+        this.fav = res.data.state
+        toast.clear()
       })
     },
     /**
