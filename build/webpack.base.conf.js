@@ -18,7 +18,7 @@ const createLintingRule = () => ({
     emitWarning: !config.dev.showEslintErrorsInOverlay
   }
 })
-const entries = utils.getMultiEntry('./src/modules/*/*/*.js');
+const entries = utils.getMultiEntry('./src/modules/**/**/*.js');
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: entries,
@@ -36,7 +36,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      // 'vue$': 'vue/dist/vue.esm.js',
+      'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       '@common': resolve('src/modules/common'),
       '@tw': resolve('src/modules/common/components/tw')
@@ -68,7 +68,7 @@ module.exports = {
           {
             loader: 'img-loader',
             options:{
-              plugins (context){
+              plugins (context){ 
                 if(process.env.NODE_ENV !== 'production')return [];
                 return [
                   require('imagemin-jpegtran')(),
