@@ -13,18 +13,23 @@ import Vue from 'vue'
 import { Dialog } from 'vant'
 import { activity } from '@/fetch/common'
 import VueCookie from 'vue-cookie'
-
+import store from './store'
 Vue.use(VueCookie)
 export default {
+  store,
   data () {
     return {
-      transitionName: 'slide-left'
+      transitionName: ''
     }
   },
   watch: {
     $route (to, from) {
       const toIndex = to.meta.index
       const fromIndex = from.meta.index
+      if (to.path === from.path) {
+        this.transitionName = ''
+        return
+      }
       this.transitionName = toIndex > fromIndex ? 'slide-right' : 'slide-left'
     }
   },

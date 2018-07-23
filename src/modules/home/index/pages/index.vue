@@ -25,6 +25,7 @@
  * write a component's description
  */
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 import { Lazyload, Tabbar, TabbarItem, Swipe, SwipeItem } from 'vant'
 import bus from '@/eventbus'
 Vue.use(Lazyload)
@@ -65,7 +66,7 @@ export default {
         {
           iconclass: 'van-icon-iconfontcart',
           text: '采购车',
-          info: this.cartNum >= 100 ? '99+' : this.cartNum,
+          info: this.carNum >= 100 ? '99+' : this.carNum,
           url: '/cart/index.html?goback=1'
         },
         {
@@ -74,7 +75,10 @@ export default {
           url: '/login'
         }
       ]
-    }
+    },
+    ...mapGetters({
+      carNum: 'carNum'
+    })
   },
   methods: {
     /**
