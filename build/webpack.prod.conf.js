@@ -12,7 +12,7 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 
-
+const venderBundle = require('./venderBundle.json')
 const env = require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -149,13 +149,14 @@ if (config.build.bundleAnalyzerReport) {
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 
-let pages = utils.getMultiEntry('./src/modules/**/**/*.html');
+let pages = utils.getMultiEntry('./src/modules/*/*/*.html');
 for (const pathname in pages) {
   var conf = {
     filename: pathname+'.html',
     template: pages[pathname],
     inject: true,
     chunks: ['manifest',pathname],
+    venderBundle: venderBundle.vender.js,
     minify: {
       removeComments: true,
       collapseWhitespace: true,

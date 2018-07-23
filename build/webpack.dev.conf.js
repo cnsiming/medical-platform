@@ -85,7 +85,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   ]
 })
 /** 配置多页面 */
-var pages = utils.getMultiEntry('./src/modules/**/*.html');
+var pages = utils.getMultiEntry('./src/modules/*/*.html');
 for (const pathname  in pages) {
   var conf = {
     filename: pathname + '.html',
