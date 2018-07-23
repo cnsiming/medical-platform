@@ -12,7 +12,7 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 
-
+const venderConfig = require('./venderConfig.json')
 const env = require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -156,6 +156,7 @@ for (const pathname in pages) {
     template: pages[pathname],
     inject: true,
     chunks: ['manifest',pathname],
+    venderConfig: venderConfig.vender.js,
     minify: {
       removeComments: true,
       collapseWhitespace: true,
