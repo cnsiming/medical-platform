@@ -40,3 +40,13 @@ export async function getCartNum () {
   }))
   return res
 }
+
+/**
+ * 获取促销活动专区
+ */
+export async function activityindexshow () {
+  let res = await RQ.post('home/activityindexshow', qs.stringify({
+    showad: 1
+  }))
+  return res
+}

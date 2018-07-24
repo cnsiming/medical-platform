@@ -335,7 +335,10 @@ export default {
       }).then(res => {
         console.log(res.data)
         this.fav = res.data.state
-        toast.clear()
+        toast.type = 'text'
+        toast.duration = 2000
+        toast.message = res.data.text
+        // toast.clear()
       })
     },
     /**

@@ -56,6 +56,21 @@
         </div>
       </section>
 
+      <!-- 促销活动专区 -->
+      <div class="activity_show" v-if="activityItems.length!=0">
+        <div class="activity_show_header">
+          <span class="inline"></span>
+          <p class="inline f16">促销活动专区</p>
+        </div>
+        <div class="activity_show_list">
+          <div class="activity_show_item" v-for="(item,index) in activityItems" :key="index">
+            <a :href="item.url===''?'#':item.url">
+              <img v-lazy="item.image">
+            </a>
+          </div>
+        </div>
+      </div>
+
       <!-- 广告通栏banner -->
       <section class="adbanner" v-if="adBannerImgs.length != 0" style="height: 1rem;padding-bottom: 0.05rem">
         <van-swipe :show-indicators="showIndicators" :autoplay="3000" style="height: 1rem" >
@@ -111,7 +126,7 @@ import Promotion from '../components/promotion'
 import Activity from '../components/activity'
 import Gifs from '../components/gifs'
 
-import { getSp, getSlide, getCategory, getCartNum } from '@/fetch/index'
+import { getSp, getSlide, getCategory, getCartNum, activityindexshow } from '@/fetch/index'
 
 import easeout from '@/modules/common/js/animation'
 
@@ -140,6 +155,9 @@ export default {
     getSp().then(res => {
       this.total_activitys = res.data.data.total_activitys
       this.adBannerImgs = res.data.data.adbanner_image_list
+    })
+    activityindexshow().then(res => {
+      this.activityItems = res.data.data.activity_show
     })
     try {
       // 判断是否登录
@@ -253,7 +271,10 @@ export default {
       scroll: false,
       scrollTimer: null,
 
-      scrollPosition: 0
+      scrollPosition: 0,
+
+      // 促销活动专区
+      activityItems: []
     }
   },
   computed: {
@@ -728,6 +749,48 @@ export default {
     p {
       line-height: 0.15rem;
       font-size: 0.15rem;
+    }
+  }
+
+  // 促销活动专区
+  .activity_show_header {
+    background-color: #fff;
+    height: .4rem;
+    text-align: left;
+    line-height: 1;
+    box-sizing: border-box;
+    padding: .05rem 0;
+    .layout(row);
+    > span {
+      width: .05rem;
+      height: 100%;
+      background-color: #fb4f4d;
+    }
+    > p {
+      height: 100%;
+      flex: 1;
+      line-height: .3rem;
+      padding-left: .05rem;
+    }
+  }
+  .activity_show_list {
+    .layout(row);
+    .activity_show_item {
+      width: 49.5%;
+      padding: .03rem;
+      display: inline-block;
+      height: .75rem;
+      box-sizing: border-box;
+      > a{
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+        > img {
+          display: inline-block;
+          height: 100%;
+          width: 100%;
+        }
+      }
     }
   }
 }

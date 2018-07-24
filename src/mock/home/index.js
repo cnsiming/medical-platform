@@ -129,4 +129,23 @@ mock.mock('home/category', {
 })
 
 mock.mock('cart/getnum', 10)
+
+mock.mock('home/activityindexshow', {
+  code: 1,
+  data: {
+    'activity_show|0-8': [
+      {
+        background_color: '#FFFFFF',
+        'id|+1': 0,
+        image: Random.image('720x360', '#ffffff'),
+        position: '@id',
+        sort: '0',
+        state: '1',
+        title: 8,
+        type: '2',
+        url: ''
+      }
+    ]
+  }
+})
 export default mock
