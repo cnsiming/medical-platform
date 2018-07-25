@@ -57,6 +57,15 @@ const routes = [
     ]
   },
   {
+    path: '/notification-center',
+    component: () => import(/* webpackChunkName: 'notification' */'../pages/notification-center.vue'),
+    meta: {
+      index: 999,
+      keepAlive: true,
+      login: true
+    }
+  },
+  {
     path: '*',
     redirect: '/'
   }
@@ -84,6 +93,12 @@ const router = new VueRouter({
 router.beforeEach((to, form, next) => {
   // 显示进度条
   NProgress.start()
+  // 如果需要登录的页面则检查是否已经登录，如果未登录则返回login页面
+  if (to.meta.login) {
+    if (!this.a.app.$cookie.get('PHPSESSID')) {
+      next('/login')
+    }
+  }
   next()
 })
 // 路由跳转后
