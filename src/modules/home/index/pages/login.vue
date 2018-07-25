@@ -57,7 +57,6 @@ export default {
       this.$router.back()
     },
     submit () {
-      console.log(this.checked)
       if (this.username === '' || this.password === '') {
         Toast('用户名或密码不能为空')
         return
@@ -78,6 +77,9 @@ export default {
           toast.type = 'success'
           setTimeout(() => {
             toast.clear()
+            if (process.env.NODE_ENV === 'development') {
+              this.$cookie.set('PHPSESSID', 'PHPSESSID-development')
+            }
             this.$router.replace('/index')
           }, 500)
         } else if (res.data === 2) {
@@ -94,76 +96,80 @@ export default {
 <style lang="less">
 @import "../../../common/less/vars.less";
 .xpt-login {
-    height: 100%;
-    width: 100%;
-    background-color: @bgColor;
-    .xpt-login-header {
-        width: .6rem;
-        height: .45rem;
-        line-height: .45rem;
-        color: #999;
-        text-align: center;
+  height: 100%;
+  width: 100%;
+  background-color: @bgColor;
+  .xpt-login-header {
+    width: 0.6rem;
+    height: 0.45rem;
+    line-height: 0.45rem;
+    color: #999;
+    text-align: center;
+  }
+  .container-img {
+    height: 2rem;
+    width: 80%;
+    margin: 30px auto 40px;
+    background: url(http://xpt.m.gzjztw.com/picture/app/login/full_logo.jpg)
+      center center no-repeat;
+    background-size: contain;
+    position: relative;
+  }
+  .bhpt::after {
+    content: " ";
+    background: url(http://xpt.m.gzjztw.com/picture/app/login/full_logo_i.jpg);
+    background-size: 100%;
+    width: 50px;
+    height: 26px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: -10px;
+  }
+  .remember-password {
+    padding: 0.1rem 0.2rem;
+    span {
+      font-size: 0.14rem;
+      color: #999;
+      line-height: 1;
     }
-    .container-img {
-        height: 2rem;
-        width: 80%;
-        margin: 30px auto 40px;
-        background: url(http://xpt.m.gzjztw.com/picture/app/login/full_logo.jpg) center center no-repeat;
-        background-size: contain;
-        position: relative;
+  }
+  .login-btn-box {
+    margin: 20px 20px 0 20px;
+    .login-btn {
+      height: 0.5rem;
+      line-height: 0.5rem;
+      background-color: #00c58d;
+      letter-spacing: 0.02rem;
+      width: 100%;
+      border: 0;
+      font-size: 0.24rem;
+      color: #fff;
     }
-    .bhpt::after {
-        content: ' ';
-        background: url(http://xpt.m.gzjztw.com/picture/app/login/full_logo_i.jpg);
-        background-size: 100%;
-        width: 50px;
-        height: 26px;
-        display: block;
-        position: absolute;
-        right: 0;
-        top: -10px;
-    }
-    .remember-password {
-        padding: .1rem .2rem;
-        span {
-            font-size: .14rem;
-            color: #999;
-            line-height: 1;
-        }
-    }
-    .login-btn-box {
-        margin: 20px 20px 0 20px;
-        .login-btn {
-            height: .5rem;
-            line-height: .5rem;
-            background-color: #00c58d;
-            letter-spacing: .02rem;
-            width: 100%;
-            border: 0;
-            font-size: .24rem;
-            color: #fff;
-        }
-    }
-    .login-footer {
-        color: #666;
-        .layout(row);
-        justify-content: space-between;
-        padding: 0 .2rem;
-    }
-    .shadown_l, .shadown_r{
-        width: 50%;
-        display: block;
-        height: 20px;
-        float: left;
-        background: url(http://xpt.gzjztw.com/picture/app/login/shadow_l.png) no-repeat left bottom;
-        background-size: auto 20px;
-    }
-    .shadown_r{
-        background: url(http://xpt.gzjztw.com/picture/app/login/shadow_r.png) no-repeat right bottom;
-         background-size: auto 20px;
-    }
-   .van-icon {
-        color: #ccc;
-    }
+  }
+  .login-footer {
+    color: #666;
+    .layout(row);
+    justify-content: space-between;
+    padding: 0 0.2rem;
+  }
+  .shadown_l,
+  .shadown_r {
+    width: 50%;
+    display: block;
+    height: 20px;
+    float: left;
+    background: url(http://xpt.gzjztw.com/picture/app/login/shadow_l.png)
+      no-repeat left bottom;
+    background-size: auto 20px;
+  }
+  .shadown_r {
+    background: url(http://xpt.gzjztw.com/picture/app/login/shadow_r.png)
+      no-repeat right bottom;
+    background-size: auto 20px;
+  }
+  .van-icon {
+    color: #ccc;
+  }
 }
 </style>

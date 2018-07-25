@@ -60,7 +60,7 @@ export default {
         {
           iconclass: 'van-icon-menu',
           text: '快捷采购',
-          url: '/index/product'
+          url: '/product'
           // url: '/product/index.html?goback=1'
         },
         {

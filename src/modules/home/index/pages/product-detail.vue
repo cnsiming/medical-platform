@@ -1,6 +1,9 @@
 <template>
    <div class="xpt-product-detail">
-     <van-nav-bar
+     <xpt-header title="商品详情" rightIcon="caidanshu">
+
+     </xpt-header>
+     <!-- <van-nav-bar
       title="商品详情"
       left-text="返回"
       right-text="按钮"
@@ -8,8 +11,7 @@
       @click-left="onClickLeft"
       @click-right="onClickRight"
     >
-      <van-icon style="font-size: 0.2rem;position: relative;top: -.02rem;" name="caidanshu" slot="right" />
-    </van-nav-bar>
+    </van-nav-bar> -->
     <section class="subcontent">
       <div class="product-img-box">
         <van-swipe :autoplay="3000">
@@ -165,6 +167,7 @@ import { Toast, NavBar, Icon, Swipe, SwipeItem, ImagePreview, Stepper, Popup } f
 import { productDetail, productGetdata, favorite } from '@/fetch/product'
 
 import twCountdowntime from '@tw/tw-countdowntime'
+import xptHeader from '../components/xpt-header'
 Vue.use(NavBar)
   .use(Icon)
   .use(Swipe)
@@ -174,7 +177,8 @@ Vue.use(NavBar)
 export default {
   name: 'xpt-product-detail',
   components: {
-    twCountdowntime
+    twCountdowntime,
+    xptHeader
   },
   filters: {
 
@@ -560,21 +564,6 @@ export default {
     &.border0 {
       border: 0;
     }
-  }
-  .van-nav-bar {
-    background-color: #00c58d;
-    .van-nav-bar__text,
-    .van-ellipsis.van-nav-bar__title {
-      color: #fff;
-    }
-  }
-  .van-nav-bar__text:active{
-    background-color: #00c58d;
-  }
-  .van-nav-bar .van-icon {
-    font-size: 0.16rem;
-    vertical-align: text-bottom;
-    color: #fff;
   }
   .van-stepper__input {
     width: .5rem;
