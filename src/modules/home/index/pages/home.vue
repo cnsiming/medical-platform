@@ -13,7 +13,7 @@
       </section>
       <section class="header-right">
         <!-- <a href="/notification/index?goback=1"> -->
-        <router-link to="/login">
+        <router-link to="/notification-center">
           <i class="icon van-icon-xiaoxi f24"></i>
         </router-link>
         <!-- </a> -->
@@ -117,7 +117,7 @@
 
 <script>
 import Vue from 'vue'
-
+import { mapActions } from 'vuex'
 import { Lazyload, Tabbar, TabbarItem, Swipe, SwipeItem } from 'vant'
 import twMenu from '@tw/tw-menu'
 import twMenuItem from '@tw/tw-menu-item'
@@ -126,7 +126,7 @@ import Promotion from '../components/promotion'
 import Activity from '../components/activity'
 import Gifs from '../components/gifs'
 
-import { getSp, getSlide, getCategory, getCartNum, activityindexshow } from '@/fetch/index'
+import { getSp, getSlide, getCategory, activityindexshow } from '@/fetch/index'
 
 import easeout from '@/modules/common/js/animation'
 
@@ -161,12 +161,7 @@ export default {
     })
     try {
       // 判断是否登录
-      let isLogin = document.querySelectorAll('#foot .is_login')[0].value
-      if (isLogin === 'true') {
-        getCartNum().then(res => {
-          this.cartNum = res.data
-        })
-      }
+      // let isLogin = document.querySelectorAll('#foot .is_login')[0].value
     } catch (error) {
       console.log('err', error.message)
     }
@@ -181,9 +176,13 @@ export default {
   destroyed () {
   },
   activated () {
+    // 是否显示头部
     this.headerActive = false
     // 恢复滚动的距离
     document.querySelector('.main').scrollTop = this.scrollPosition
+
+    // 重新获取购物车数量
+    this.getCartNum()
   },
   data () {
     return {
@@ -454,7 +453,11 @@ export default {
      */
     searchFocus () {
       this.$router.push('/search')
-    }
+    },
+
+    ...mapActions({
+      getCartNum: 'UPDATE_CARNUM'
+    })
   }
 }
 </script>

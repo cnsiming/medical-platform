@@ -128,7 +128,7 @@ mock.mock('home/category', {
   }
 })
 
-mock.mock('cart/getnum', 10)
+mock.mock('cart/getnum', 100)
 
 mock.mock('home/activityindexshow', {
   code: 1,
@@ -148,4 +148,5 @@ mock.mock('home/activityindexshow', {
     ]
   }
 })
+
 export default mock
