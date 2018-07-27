@@ -44,7 +44,7 @@ vue-mpa
 ├────────────components                       # 组件
 ├───static                           # 静态文件 绝对资源路径，不会被 Webpack 处理，它们会直接被复制到最终目录
 ```
-> ## Build Setup
+> # Build Setup
 
 ``` bash
 # install dependencies
@@ -63,9 +63,9 @@ npm run dll
 npm run build --report
 ```
 
-> ## 开发规范
+> # 开发规范
 项目采用vue + webpack 的且是多人协作，那么定义一个开发规范是必须的，这样可以让并行开发变的容易起来。
-### 1. 页面摆放顺序
+## 1. 页面摆放顺序
 * html
 * script
 * css
@@ -79,7 +79,7 @@ npm run build --report
 <style>
 </style>
 ```
-### 2. css规则（使用BEM命名规则避免样式冲突，不使用scoped）
+## 2. css规则（使用BEM命名规则避免样式冲突，不使用scoped）
 ```javascript
 <template>
   <div class="home">
@@ -97,7 +97,7 @@ npm run build --report
 </style>
 ```
 
-### 3.vue文件中上下文顺序
+## 3.vue文件中上下文顺序
 * components
 * mixins
 * filters
@@ -127,12 +127,12 @@ npm run build --report
 * computed
 * methods
 
-### 4.Vuex模块化管理
+## 4.Vuex模块化管理
 store下面一个文件夹对应一个模块
 
-### 5.Mock数据模拟
+## 5.Mock数据模拟
 mock下面一个文件夹对应一个模块的数据模拟
-### 6.路由引入模式
+## 6.路由引入模式
 路由懒加载，
 ```javascript
 {
@@ -145,7 +145,51 @@ mock下面一个文件夹对应一个模块的数据模拟
 }
 ```
 
-### 7.文件命名规范
+## 7.注释规范
+代码注释在一个项目的后期维护中显的尤为重要，所以我们要为每一个被复用的组件编写组件使用说明，为组件中每一个方法编写方法说明。
+以下情况，务必添加注释
+* 公共组件使用说明
+* 各组件中重要函数或者类说明
+* 复杂的业务逻辑处理说明
+* 特殊情况的代码处理说明,对于代码中特殊用途的变量、存在临界值、函数中使用的hack、使用了某种算法或思路等需要进行注释描述
+* 注释块必须以/**（至少两个星号）开头**/
+* 单行注释使用//
+
+#### 单行注释
+**普通方法一般使用单行注释// 来说明该方法主要作用**
+#### 多行注释
+ 组件使用说明，和调用说明
+```
+      /**
+      * 组件名称
+      * @module 组件存放位置
+      * @desc 组件描述
+      * @author 组件作者
+      * @date 2017年12月05日17:22:43
+      * @param {Object} [title]    - 参数说明
+      * @param {String} [columns] - 参数说明
+      * @example 调用示例
+      * <hbTable :title="title" :columns="columns" :tableData="tableData"></hbTable>
+      */
+```
+
+## 8.编码规范
+优秀的项目源码，即使是多人开发，看代码也如出一人之手。统一的编码规范，可使代码更易于阅读，易于理解，易于维护。
+
+**尽量按照ESLint格式要求编写代码**
+1. 使用ES6风格编码源码
+    * 定义变量使用let ,定义常量使用const
+    * 使用export ，import 模块化
+2. 组件 props 原子化
+    * 提供默认值
+    * 使用 type 属性校验类型
+    * 使用 props 之前先检查该 prop 是否存在
+3. 避免 this.$parent
+4. 谨慎使用 this.$refs
+5. 无需将 this 赋值给 component 变量
+6. 调试信息console.log() debugger 使用完及时删除
+
+### 8.文件命名规范
 单词小写,单词之间用'-'分隔，如：
 - cell
 - cell-group
@@ -156,7 +200,7 @@ mock下面一个文件夹对应一个模块的数据模拟
 - time-edit.vue
 - time-select.vue
 
-### 8. 与产品 + 后端等协作
+### 9. 与产品 + 后端等协作
 千万记住以下三点：
 
 * 要有礼貌的探（si）讨（bi）
