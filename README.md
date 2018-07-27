@@ -97,7 +97,7 @@ npm run build --report
 </style>
 ```
 
-### 3.vue文件中s上下文顺序
+### 3.vue文件中上下文顺序
 * components
 * mixins
 * filters
