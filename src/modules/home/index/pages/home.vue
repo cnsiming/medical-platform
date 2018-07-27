@@ -145,45 +145,6 @@ export default {
     Activity,
     Gifs
   },
-  created () {
-    getSlide().then(res => {
-      this.imgs = res.data.imgs
-    })
-    getCategory().then(res => {
-      this.cates = res.data.data.cates
-    })
-    getSp().then(res => {
-      this.total_activitys = res.data.data.total_activitys
-      this.adBannerImgs = res.data.data.adbanner_image_list
-    })
-    activityindexshow().then(res => {
-      this.activityItems = res.data.data.activity_show
-    })
-    try {
-      // 判断是否登录
-      // let isLogin = document.querySelectorAll('#foot .is_login')[0].value
-    } catch (error) {
-      console.log('err', error.message)
-    }
-  },
-  /**
-   * 页面挂载完成后执行
-   */
-  mounted () {},
-  /**
-   * 组件被复用时调用
-   */
-  destroyed () {
-  },
-  activated () {
-    // 是否显示头部
-    this.headerActive = false
-    // 恢复滚动的距离
-    document.querySelector('.main').scrollTop = this.scrollPosition
-
-    // 重新获取购物车数量
-    this.getCartNum()
-  },
   data () {
     return {
       headerActive: false,
@@ -276,6 +237,56 @@ export default {
       activityItems: []
     }
   },
+
+  created () {
+    getSlide().then(res => {
+      this.imgs = res.data.imgs
+    })
+    getCategory().then(res => {
+      this.cates = res.data.data.cates
+    })
+    getSp().then(res => {
+      this.total_activitys = res.data.data.total_activitys
+      this.adBannerImgs = res.data.data.adbanner_image_list
+    })
+    activityindexshow().then(res => {
+      this.activityItems = res.data.data.activity_show
+    })
+    try {
+      // 判断是否登录
+      // let isLogin = document.querySelectorAll('#foot .is_login')[0].value
+    } catch (error) {
+      console.log('err', error.message)
+    }
+  },
+  /**
+   * 页面挂载完成后执行
+   */
+  mounted () {},
+
+  activated () {
+    // 是否显示头部
+    this.headerActive = false
+    // 恢复滚动的距离
+    document.querySelector('.main').scrollTop = this.scrollPosition
+
+    // 重新获取购物车数量
+    this.getCartNum()
+  },
+  deactivated () {
+    this.headerActive = true
+  },
+
+  /**
+   * 导航离开该组件的对应路由时调用
+   */
+  beforeRouteLeave (to, from, next) {
+    // this.headerActive = true
+    // 记录当前滚动的距离
+    this.scrollPosition = document.querySelector('.home .main').scrollTop
+    next()
+  },
+
   computed: {
     /**
      * 促销套餐中当前选择的套餐
@@ -289,6 +300,7 @@ export default {
       }
     }
   },
+
   directives: {
     scroll: {
       inserted: function (el) {
@@ -388,15 +400,7 @@ export default {
       }
     }
   },
-  /**
-   * 导航离开该组件的对应路由时调用
-   */
-  beforeRouteLeave (to, from, next) {
-    this.headerActive = true
-    // 记录当前滚动的距离
-    this.scrollPosition = document.querySelector('.home .main').scrollTop
-    next()
-  },
+
   methods: {
     /**
      * 点击tab栏切换活动类型

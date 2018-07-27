@@ -13,12 +13,24 @@ export default {
     // 倒计时时间
     endTime: String | Number
   },
+
   data () {
     return {
       html: '',
       timer: null
     }
   },
+
+  mounted () {
+    this.update()
+    this.timer = setInterval(this.update, 1000)
+  },
+
+  destroyed () {
+    clearInterval(this.timer)
+    this.timer = null
+  },
+
   methods: {
     update () {
       var date = new Date()
@@ -39,15 +51,8 @@ export default {
         this.html = '<b>00</b>天<b>00</b>时<b>00</b>分<b>00</b>秒'
       }
     }
-  },
-  mounted () {
-    this.update()
-    this.timer = setInterval(this.update, 1000)
-  },
-  destroyed () {
-    clearInterval(this.timer)
-    this.timer = null
   }
+
 }
 </script>
 

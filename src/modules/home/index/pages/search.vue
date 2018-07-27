@@ -70,6 +70,7 @@ export default {
       searchList: []
     }
   },
+
   created () {
     hotSearch()
       .then(res => {
@@ -77,12 +78,14 @@ export default {
         this.hosSearch = data.data
       })
   },
-  activated () {
-    this.autofocus()
-  },
   mounted () {
 
   },
+
+  activated () {
+    this.autofocus()
+  },
+
   methods: {
     rotate () {
       this.isRotate = !this.isRotate

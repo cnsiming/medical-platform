@@ -1,17 +1,8 @@
 <template>
    <div class="xpt-product-detail">
      <xpt-header title="商品详情" rightIcon="caidanshu">
-
      </xpt-header>
-     <!-- <van-nav-bar
-      title="商品详情"
-      left-text="返回"
-      right-text="按钮"
-      left-arrow
-      @click-left="onClickLeft"
-      @click-right="onClickRight"
-    >
-    </van-nav-bar> -->
+
     <section class="subcontent">
       <div class="product-img-box">
         <van-swipe :autoplay="3000">
@@ -33,7 +24,7 @@
             <div class="inline special-right">
               <p class="f10"><i class="inline small_time"></i>剩余时间</p>
               <p>
-                <tw-countdowntime endTime="1538357201"></tw-countdowntime>
+                <tw-countdowntime :endTime="product.end_time"></tw-countdowntime>
               </p>
               <i class="i_top"></i>
               <i class="i_bottom"></i>
@@ -145,6 +136,7 @@
         </section>
       </div>
     </section>
+
     <van-popup v-model="showPopup" position="right" :overlay="false">
       <div class="showPopup">
         <div class="p-title">
@@ -176,10 +168,12 @@ Vue.use(NavBar)
   .use(Popup)
 export default {
   name: 'xpt-product-detail',
+
   components: {
     twCountdowntime,
     xptHeader
   },
+
   filters: {
 
     /**
@@ -204,6 +198,7 @@ export default {
       }
     }
   },
+
   data () {
     return {
       productNum: 1,
@@ -225,6 +220,7 @@ export default {
   created () {
     this.getProductData()
   },
+
   computed: {
     productStep () {
       if (this.active !== -1) {
@@ -233,15 +229,18 @@ export default {
       return 1
     }
   },
+
   beforeRouteEnter (to, from, next) {
     bus.$emit('navAnimation', true)
     next()
   },
+
   beforeRouteLeave (to, from, next) {
     bus.$emit('navAnimation', false)
     this.$destroy()
     next()
   },
+
   methods: {
     getProductData () {
       let productId = this.$route.params.id

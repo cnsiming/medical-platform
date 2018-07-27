@@ -35,6 +35,7 @@ Vue.use(Lazyload)
   .use(SwipeItem)
 export default {
   name: 'index',
+
   data () {
     return {
       navActive: 0,
@@ -44,11 +45,25 @@ export default {
       navSlideDown: false
     }
   },
+  watch: {
+    $route (to, from) {
+      this.navs.map((item, index) => {
+        if (item.url === this.$route.path) {
+          this.navActive = index
+        }
+      })
+      const toIndex = to.meta.index
+      const fromIndex = from.meta.index
+      this.transitionName = toIndex > fromIndex ? 'slide-right' : 'slide-left'
+    }
+  },
+
   mounted () {
     bus.$on('navAnimation', (onoff) => {
       this.navSlideDown = onoff
     })
   },
+
   computed: {
     navs () {
       return [
@@ -80,6 +95,7 @@ export default {
       carNum: 'carNum'
     })
   },
+
   methods: {
     /**
      * 点击导航栏切换
@@ -90,18 +106,6 @@ export default {
       if (this.navs[index].url) {
         this.$router.push(this.navs[index].url)
       }
-    }
-  },
-  watch: {
-    $route (to, from) {
-      this.navs.map((item, index) => {
-        if (item.url === this.$route.path) {
-          this.navActive = index
-        }
-      })
-      const toIndex = to.meta.index
-      const fromIndex = from.meta.index
-      this.transitionName = toIndex > fromIndex ? 'slide-right' : 'slide-left'
     }
   }
 

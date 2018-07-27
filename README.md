@@ -10,12 +10,12 @@
 - php
 - html5
 - vant-ui
-- js[vue.js,jQuery]
+- js[vue.js]
     - ES6
     - Nodejs
 - css[less]/css3
 
-#### dev 开发流程
+> #### dev 开发流程
 - 命令行下执行：'npm run dev'
 - 打包上线: 'npm run build'
 - 前端采取webpack编译构建开发，配合dev-server插件和mock模拟后端服务器进行交互
@@ -44,13 +44,14 @@ vue-mpa
 ├────────────components                       # 组件
 ├───static                           # 静态文件 绝对资源路径，不会被 Webpack 处理，它们会直接被复制到最终目录
 ```
-## Build Setup
+> ## Build Setup
 
 ``` bash
 # install dependencies
 npm install
 
 # serve with hot reload at localhost:8080
+npm run dll
 npm run dev
 
 # build for production with minification
@@ -58,12 +59,118 @@ npm run dll
 npm run build
 
 # build for production and view the bundle analyzer report
+npm run dll
 npm run build --report
 ```
 
-#### 参考资料
-- [vue](https://cn.vuejs.org/v2/guide/)
-- [scss](https://www.sass.hk/guide/)
-- [vue-router](https://router.vuejs.org/zh-cn/)
-- [webpack](https://doc.webpack-china.org)
-- [axios](http://www.jianshu.com/p/df464b26ae58)
+> ## 开发规范
+项目采用vue + webpack 的且是多人协作，那么定义一个开发规范是必须的，这样可以让并行开发变的容易起来。
+### 1. 页面摆放顺序
+* html
+* script
+* css
+```javascript
+<template>
+</template>
+
+<script>
+</script>
+
+<style>
+</style>
+```
+### 2. css规则（使用BEM命名规则避免样式冲突，不使用scoped）
+```javascript
+<template>
+  <div class="home">
+    <div class="home__count">{{ count }}</div>
+    <div class="home__input"></div>
+  </div>
+</template>
+
+<style lang="scss">
+.home {
+  text-align: center;
+  &__count {}
+  &__input {}
+}
+</style>
+```
+
+### 3.vue文件中s上下文顺序
+* components
+* mixins
+* filters
+* prop
+* data
+* state
+* getter
+* action
+* mutations
+* watch
+
+* 生命周期钩子
+    * beforeCreate （按照生命周期钩子从上到下）
+    * created
+    * beforeMount
+    * mounted
+    * beforeUpdate
+    * updated
+    * activated
+    * deactivated
+    * beforeDestroy
+    * destroyed
+* 路由钩子
+    * beforeRouteEnter
+    * beforeRouteUpdate
+    * beforeRouteLeave
+* computed
+* methods
+
+### 4.Vuex模块化管理
+store下面一个文件夹对应一个模块
+
+### 5.Mock数据模拟
+mock下面一个文件夹对应一个模块的数据模拟
+### 6.路由引入模式
+路由懒加载，
+```javascript
+{
+    path: '/login',
+    component: () => import(/* webpackChunkName: 'login' */'../pages/login.vue'),
+    meta: {
+      index: 998,
+      keepAlive: false
+    }
+}
+```
+
+### 7.文件命名规范
+单词小写,单词之间用'-'分隔，如：
+- cell
+- cell-group
+- search
+- search-list
+
+名词在前，动词在后,如：
+- time-edit.vue
+- time-select.vue
+
+### 8. 与产品 + 后端等协作
+千万记住以下三点：
+
+* 要有礼貌的探（si）讨（bi）
+* 要很有礼貌的探（si）讨（bi）
+* 要非常有礼貌的探（si）讨（bi）
+
+
+
+> ## 参考资料
+- [Vue](https://cn.vuejs.org/v2/guide/)
+- [VueRouter](https://router.vuejs.org/zh-cn/)
+- [Vant](https://youzan.github.io/vant/#/zh-CN/intro)
+- [Axios](http://www.jianshu.com/p/df464b26ae58)
+- [Mockjs](http://mockjs.com/)
+- [Webpack](https://doc.webpack-china.org)
+- [Less](http://lesscss.cn/)
+- [BEM命名规范](https://www.w3cplus.com/css/bem-definitions.html)
