@@ -4,7 +4,9 @@ const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
 const glob = require('glob')
-
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
 exports.assetsPath = function(_path) {
     const assetsSubDirectory = process.env.NODE_ENV === 'production' ?
         config.build.assetsSubDirectory :
@@ -28,27 +30,26 @@ exports.cssLoaders = function(options) {
         options: {
             sourceMap: options.sourceMap,
             ident: 'postcss',
-            plugins: [
+            plugins: []
+            .concat(options.usePxtoRem ? [
+                require('postcss-pxtorem')({
+                    rootValue: 100,
+                    propList: ['*','!max-width']
+                })
+            ]:[])
+            .concat(options.useSprites ? [
                 require('postcss-sprites')({
                     retina: true, //支持retina，可以实现合并不同比例图片
                     verbose: true,
                     spritePath: 'dist/template/img/sprites', //雪碧图合并后存放地址
-                    // groupBy: function (image) {
-                    //     console.log(image);
-                    //   //将图片分组，可以实现按照文件夹生成雪碧图
-                    //   return image;
-                    // },
-                }),
-                require('postcss-pxtorem')({
-                    rootValue: 100,
-                    propList: ['*']
                 })
-            ]
+            ]: [])
         },
     }
 
     // generate loader string to be used with extract text plugin
     function generateLoaders(loader, loaderOptions) {
+
         const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
         if (loader) {
