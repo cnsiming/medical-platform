@@ -19,7 +19,8 @@
     "vue-axios": "^2.1.1",
     "vue-cookie": "^1.1.4",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.8.4",

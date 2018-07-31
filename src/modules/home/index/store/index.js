@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import mutations from './mutations'
 import getters from './getters'
 import actions from './actions'
+import persistedstate from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 const state = {
@@ -14,5 +15,8 @@ export default new Vuex.Store({
   state,
   mutations,
   getters,
-  actions
+  actions,
+  plugins: [persistedstate({
+    key: 'xpt'
+  })]
 })
