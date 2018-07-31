@@ -7,9 +7,9 @@ import router from './router'
 import '@/assets/fonts/iconfont/iconfont.css'
 import '@/modules/common/less/common.less'
 
-if (process.env.NODE_ENV === 'development') {
-  require('@/mock')
-}
+// if (process.env.NODE_ENV === 'development') {
+//   require('@/mock')
+// }
 
 Vue.use(VueRouter)
 

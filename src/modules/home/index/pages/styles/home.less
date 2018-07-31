@@ -1,0 +1,337 @@
+@import "../../../../common/less/vars.less";
+.home {
+  .header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 888;
+    line-height: 0.5rem;
+    height: 0.5rem;
+    // background-color: #00c58d;
+    background-color: @bgColor;
+    .layout(row);
+    > section {
+      box-sizing: border-box;
+      height: 0.5rem;
+    }
+    .header-left {
+      width: 0.5rem;
+    }
+    .header-middle {
+      flex: 1;
+      > div {
+        height: 0.3rem;
+        line-height: 0.3rem;
+        margin: 0.1rem 0;
+        position: relative;
+      }
+      input {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        font-size: 0.16rem;
+        padding-left: 0.1rem;
+        border: 0;
+        border-radius: 15px;
+      }
+      .icon {
+        position: absolute;
+        color: #ccc;
+        right: 0.1rem;
+        top: 0;
+      }
+    }
+    .header-right {
+      width: 0.5rem;
+      > a {
+        display: inline-block;
+        width: 100%;
+      }
+    }
+    .icon {
+      color: #fff;
+    }
+  }
+  .main {
+      height: 100%;
+      overflow-y: scroll;
+  }
+  .menu-wrapper {
+    background-color: #fff;
+    margin-bottom: 0.05rem;
+  }
+  .tab-wrapper {
+    background-color: #fff;
+    text-align: left;
+    > span {
+      position: relative;
+      text-align: center;
+      display: inline-block;
+      box-sizing: border-box;
+      font-size: 0.15rem;
+      width: 20%;
+      height: 0.4rem;
+      line-height: 0.4rem;
+      color: #666;
+      &:last-child {
+        width: 14%;
+        &::after {
+          width: 0;
+        }
+      }
+      &.active {
+        border-bottom: 1px solid red;
+      }
+      &::after {
+        content: " ";
+        position: absolute;
+        right: 0;
+        top: 0.12rem;
+        width: 0.01rem;
+        height: 0.18rem;
+
+        background-color: #ddd;
+      }
+    }
+  }
+  .tab-content {
+    min-height: 2.1rem;
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 0.05rem;
+  }
+  .content {
+    background-color: #fff;
+    position: absolute;
+    width: 100%;
+    transition: all 0.5s;
+    overflow-x: scroll;
+    ul.card {
+      li {
+        position: relative;
+        float: left;
+        text-align: center;
+        box-sizing: border-box;
+        border-right: 1px solid @bgColor;
+        width: 1.3rem;
+        padding: 0.05rem;
+        p {
+          text-align: left;
+          font-size: 0.14rem;
+          height: 0.2rem;
+          &.name {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-wrap: normal;
+            overflow: hidden;
+            // font-size: .12rem;
+          }
+          &.price {
+            color: @badgeColor;
+          }
+        }
+        .pro-title {
+          color: #333;
+        }
+      }
+    }
+    .promotion {
+      .layout(row);
+      position: relative;
+      > ul {
+        width: 0.75rem;
+        height: 2.1rem;
+        overflow-y: scroll;
+        background-color: #f8f8f8;
+        > li {
+          box-sizing: border-box;
+          width: 100%;
+          height: 0.45rem;
+          line-height: 0.45rem;
+          border-bottom: 1px solid #e5e5e5;
+          border-right: 1px solid #e5e5e5;
+          border-left: 0.03rem solid #f8f8f8;
+          &.active {
+            border-left: 0.03rem solid red;
+          }
+        }
+      }
+      > .promotion-right {
+        flex: 1;
+        overflow-x: scroll;
+      }
+    }
+    .combo-footer {
+      background-color: #fff;
+      padding: 0 0 0 0.1rem;
+      width: 100%;
+      height: 0.45rem;
+      box-sizing: border-box;
+      .layout(row);
+      line-height: 0.45rem;
+      .combo-footer-left {
+        flex: 1;
+        text-align: left;
+      }
+      .combo-footer-right {
+        width: 1.2rem;
+        height: 0.45rem;
+        line-height: 0.225rem;
+        background: url(http://xpt.m.gzjztw.com/picture/app/home/Time-ico.png)
+          no-repeat;
+        background-size: cover;
+        .tw-countdowntime {
+          position: static;
+          width: 100%;
+        }
+      }
+    }
+  }
+  .category.on {
+    .category_title {
+      position: fixed;
+      top: 0.5rem;
+      z-index: 1;
+    }
+    .category_list > .category_ul_list {
+      position: fixed;
+      top: 1.11rem;
+      height: calc(100vh - 1.6rem);
+      overflow: scroll;
+    }
+    .category_content_list {
+      margin-top: 0.61rem;
+      margin-left: 0.91rem;
+    }
+  }
+  .category .category_title {
+    width: 100%;
+    height: 0.6rem;
+    background: url(http://xpt.m.gzjztw.com//picture/app/home/category_tit.png)
+      no-repeat center center;
+    background-size: cover;
+    border-bottom: 1px solid #ccc;
+    h4 {
+      font-size: 0.18rem;
+      line-height: 0.35rem;
+    }
+    p {
+      font-size: 0.11rem;
+      color: #666;
+    }
+  }
+  .category .category_list {
+    .layout(row);
+    background-color: #fff;
+    ul {
+      display: inline-block;
+      width: 0.9rem;
+      li {
+        display: inline-block;
+        height: 0.55rem;
+        width: 100%;
+        box-sizing: border-box;
+        border-bottom: 1px solid #e1e1e1;
+        border-right: 1px solid #e1e1e1;
+        span {
+          display: block;
+          height: 0.35rem;
+          line-height: 0.35rem;
+          margin-top: 0.1rem;
+          border-left: 3px solid #fff;
+        }
+        &.active {
+          border-right: 1px solid #fff;
+          span {
+            color: #00aaef;
+            border-left: 3px solid #00aaef;
+          }
+        }
+      }
+    }
+    .category_content_list {
+      flex: 1;
+    }
+  }
+  .category .category_content_list {
+    height: 100%;
+    .category-item {
+      line-height: 0.55rem;
+      color: #00aaef;
+      position: relative;
+      &:last-child {
+        min-height: calc(100vh - 1.5rem);
+      }
+      .category-item-title > p {
+        display: inline;
+        padding: 0 0.1rem;
+      }
+      .vm {
+        width: 0.46rem;
+        display: inline-block;
+        border-bottom: 1px solid #ccc;
+        vertical-align: middle;
+      }
+    }
+  }
+  .category .category-item-imgs {
+    .category-img {
+      display: inline-block;
+      float: left;
+      padding: 0.1rem 0.05rem;
+    }
+    img {
+      width: 0.82rem;
+      height: 0.82rem;
+    }
+    p {
+      line-height: 0.15rem;
+      font-size: 0.15rem;
+    }
+  }
+
+  // 促销活动专区
+  .activity_show_header {
+    background-color: #fff;
+    height: .4rem;
+    text-align: left;
+    line-height: 1;
+    box-sizing: border-box;
+    padding: .05rem 0;
+    .layout(row);
+    > span {
+      width: .05rem;
+      height: 100%;
+      background-color: #fb4f4d;
+    }
+    > p {
+      height: 100%;
+      flex: 1;
+      line-height: .3rem;
+      padding-left: .05rem;
+    }
+  }
+  .activity_show_list {
+    .layout(row);
+    .activity_show_item {
+      width: 49.5%;
+      padding: .03rem;
+      display: inline-block;
+      height: .75rem;
+      box-sizing: border-box;
+      > a{
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+        > img {
+          display: inline-block;
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+.van-swipe__indicator--active {
+  background: #007aff;
+}

@@ -10,7 +10,16 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'template',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/': {
+        target: 'http://test.app.plat.twyyx.com/',
+        changeOrigin: true,
+        // secure: false,
+        // pathRewrite: {
+        //   '^/api': ''
+        // }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
