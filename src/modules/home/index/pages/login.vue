@@ -33,6 +33,7 @@
 
 <script>
 import Vue from 'vue'
+import { mapActions } from 'vuex'
 import { Toast, Field, Icon, CellGroup, Checkbox } from 'vant'
 
 import login from '@/fetch/login'
@@ -75,11 +76,12 @@ export default {
         if (res.data === 1) {
           toast.message = '登录成功'
           toast.type = 'success'
+          this.LOGIN(true)
           setTimeout(() => {
             toast.clear()
-            if (process.env.NODE_ENV === 'development') {
-              this.$cookie.set('PHPSESSID', 'PHPSESSID-development')
-            }
+            // if (process.env.NODE_ENV === 'development') {
+            //   this.$cookie.set('PHPSESSID', 'PHPSESSID-development')
+            // }
             this.$router.replace('/index')
           }, 500)
         } else if (res.data === 2) {
@@ -88,7 +90,11 @@ export default {
           Toast('用户名密码错误，请重新输入')
         }
       })
-    }
+    },
+
+    ...mapActions([
+      'LOGIN'
+    ])
   }
 }
 </script>

@@ -124,7 +124,7 @@
                 <van-icon v-if="fav==0" name="xinaixin" class="f20"></van-icon>
                 <van-icon v-else name="aixin" class="red f20"></van-icon>
               </div>
-              <p class="center f14">收藏</p>
+              <p class="center f14">{{fav == 0 ? '收藏' : '已收藏'}}</p>
             </div>
             <div class="inline stepper">
               <van-stepper v-model="productNum" :step="productStep" :integer="true" />

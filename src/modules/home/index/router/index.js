@@ -5,6 +5,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 import Index from '../pages/index.vue'
+import store from '../store'
 const routes = [
   {
     path: '/search',
@@ -95,7 +96,8 @@ router.beforeEach((to, form, next) => {
   NProgress.start()
   // 如果需要登录的页面则检查是否已经登录，如果未登录则返回login页面
   if (to.meta.login) {
-    if (!this.a.app.$cookie.get('PHPSESSID')) {
+    let login = store.getters.login
+    if (!login) {
       next('/login')
     }
   }

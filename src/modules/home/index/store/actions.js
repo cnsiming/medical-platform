@@ -4,8 +4,12 @@ import {
 
 const actions = {
   UPDATE_CARNUM: ({commit, state}, payload) => {
-    console.log('UPDATE_CARNUM')
     return getCartNum().then(res => commit('UPDATE_CARNUM', {payload: res.data}))
+  },
+
+  LOGIN: ({commit, state}, payload) => {
+    return commit('LOGIN', {payload})
   }
 }
+
 export default actions

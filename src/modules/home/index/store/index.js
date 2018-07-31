@@ -6,7 +6,8 @@ import actions from './actions'
 Vue.use(Vuex)
 
 const state = {
-  carNum: 10
+  carNum: 10,
+  login: false
 }
 
 export default new Vuex.Store({

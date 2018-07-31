@@ -3,6 +3,12 @@ const mutations = {
     payload
   }) => {
     state.carNum = payload
+  },
+
+  LOGIN: (state, {
+    payload
+  }) => {
+    state.login = payload
   }
 }
 
