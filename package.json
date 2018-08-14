@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "better-scroll": "^1.12.6",
     "nprogress": "^0.2.0",
     "vant": "^1.1.8",
     "vue": "^2.5.2",
